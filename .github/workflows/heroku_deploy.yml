@@ -17,4 +17,4 @@ jobs:
           heroku_app_name: "not-my-main"
           heroku_email: "benthomasdeveloper@gmail.com"
         env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          HD_DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
