@@ -3,7 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
 const commands = [
-	new SlashCommandBuilder().setName('nmm').setDescription('Replies with random Apex Legends Champion!'),
+	new SlashCommandBuilder().setName('nmm').setDescription('Generate a random Apex Legends champion, if you lose it\'s ok! It\'s not your main!'),
 ]
 	.map(command => command.toJSON());
 
