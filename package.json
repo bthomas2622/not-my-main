@@ -1,0 +1,28 @@
+{
+  "name": "not-my-main",
+  "version": "1.0.0",
+  "description": "\"Not My Main\" is a Discord Bot that generates random Apex Legends champions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bthomas2622/not-my-main.git"
+  },
+  "keywords": [
+    "apex",
+    "legends",
+    "discord",
+    "bot"
+  ],
+  "author": "Ben Thomas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bthomas2622/not-my-main/issues"
+  },
+  "homepage": "https://github.com/bthomas2622/not-my-main#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0"
+  }
+}
