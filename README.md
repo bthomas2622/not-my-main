@@ -1,6 +1,6 @@
 ## freeBrunch's Discord Bot
 
-A fun [Discord](https://discord.com/) bot for Discord server with friends.
+A fun [Discord](https://discord.com/) Bot for Discord server with friends.
 
 **Resources used:**
 - https://discordjs.guide/
