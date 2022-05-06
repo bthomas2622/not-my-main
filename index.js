@@ -28,10 +28,10 @@ client.on('interactionCreate', async interaction => {
     await interaction.reply(coin)
   }
   else if (interaction.commandName === 'd6') {
-    await interaction.reply(Math.floor(Math.random() * 6) + 1)
+    await interaction.reply(String(Math.floor(Math.random() * 6) + 1))
   }
   else if (interaction.commandName === 'd20') {
-    await interaction.reply(Math.floor(Math.random() * 20) + 1)
+    await interaction.reply(String(Math.floor(Math.random() * 20) + 1))
   }
   else if (interaction.commandName === 'dad') {
     await interaction.reply("son?")
