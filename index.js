@@ -13,7 +13,7 @@ client.on('interactionCreate', async interaction => {
   const apexLegendList = Object.keys(legends);
   // const apexLegendList = ['Ash', 'Bangalore', 'Bloodhound', "Caustic", "Crypto", "Fuse", "Gibraltar", "Horizon", "Lifeline", "Loba", "Mad Maggie", "Mirage", "Octane", "Pathfinder", "Rampart", "Revenant", "Seer", "Valkyrie", "Wattson", "Wraith"]
 
-  if (interaction.commandName == 'commands') {
+  if (interaction.commandName === 'commands') {
     await interaction.reply("/nmm" + "\n" + "/coinflip" + "\n" + "/d6" + "\n" + "/d20" + "\n" + "/dad");
   }
   else if (interaction.commandName === 'nmm') {
