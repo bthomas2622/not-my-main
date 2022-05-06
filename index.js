@@ -1,4 +1,4 @@
-import legends from './apex_legends.json' assert { type: "json" };
+const legends = require('./apex_legends.json');
 const { Client, Intents } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
