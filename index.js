@@ -19,7 +19,7 @@ client.on('interactionCreate', async interaction => {
   else if (interaction.commandName === 'nmm') {
     let chosenLegend = apexLegendList[Math.floor(Math.random() * apexLegendList.length)];
     let chosenLegendVoiceLines = legends[chosenLegend];
-    await interaction.reply(chosenLegend + "\n" + '"' + chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)] + '"');
+    await interaction.reply("**" + chosenLegend + "**" + "\n" + '"' + chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)] + '"');
   }
   else if (interaction.commandName === 'coinflip') {
     let num = Math.random();
