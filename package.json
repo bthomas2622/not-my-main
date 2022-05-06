@@ -1,7 +1,7 @@
 {
-  "name": "not-my-main",
-  "version": "1.0.0",
-  "description": "\"Not My Main\" is a Discord Bot that generates random Apex Legends champions",
+  "name": "freebrunch-discord-bot",
+  "version": "1.0.1",
+  "description": "freeBrunch's Discord Bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bthomas2622/not-my-main.git"
+    "url": "git+https://github.com/bthomas2622/freebrunch-discord-bot.git"
   },
   "keywords": [
     "apex",
@@ -20,9 +20,9 @@
   "author": "Ben Thomas",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bthomas2622/not-my-main/issues"
+    "url": "https://github.com/bthomas2622/freebrunch-discord-bot/issues"
   },
-  "homepage": "https://github.com/bthomas2622/not-my-main#readme",
+  "homepage": "https://github.com/bthomas2622/freebrunch-discord-bot#readme",
   "dependencies": {
     "@discordjs/builders": "^0.13.0",
     "@discordjs/rest": "^0.4.1",
