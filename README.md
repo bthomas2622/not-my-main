@@ -7,4 +7,5 @@ A fun [Discord](https://discord.com/) Bot for Discord server with friends.
 - https://medium.com/@linda0511ny/create-host-a-discord-bot-with-heroku-in-5-min-5cb0830d0ff2
 
 **Commands**
+- `/commands` -> List bot commands
 - `/nmm` -> "Not My Main", generates a random Apex Legends champion
