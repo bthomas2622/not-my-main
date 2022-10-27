@@ -1,6 +1,7 @@
 name: Deploy Discord Bot to Self Hosted Runner
 
 on:
+  workflow_dispatch:
   push: 
     branches: main
     paths-ignore:
