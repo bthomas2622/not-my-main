@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-          npm install -g pm2
+          npm install pm2@latest -g
       - name: PM2 Stop Existing Bot
         run: |
           pm2 stop all
@@ -30,4 +30,4 @@ jobs:
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
-          pm2 start index.js --name freebrunch-discord-bot --port 3000 --token $DISCORD_TOKEN
+          pm2 start index.js --name "freebrunch-discord-bot" -- start
