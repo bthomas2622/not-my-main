@@ -26,8 +26,7 @@ jobs:
           pm2 stop all
         continue-on-error: true
       - name: Start Bot with PM2
-        with:
-          env:
-            DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
           pm2 start index.js --name freebrunch-discord-bot
