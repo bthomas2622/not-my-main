@@ -31,3 +31,4 @@ jobs:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
           pm2 start index.js --name freebrunch-discord-bot
+          pm2 list
