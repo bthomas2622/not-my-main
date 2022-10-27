@@ -1,0 +1,19 @@
+name: Deploy to Heroku
+
+on:
+  workflow_dispatch:
+  push: main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - name: Start Bot
+        run: |
+          export DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
