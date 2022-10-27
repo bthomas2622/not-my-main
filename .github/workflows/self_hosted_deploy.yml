@@ -3,6 +3,9 @@ name: Deploy Discord Bot to Self Hosted Runner
 on:
   push: 
     branches: main
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
 
 jobs:
   deploy-bot:
@@ -23,6 +26,8 @@ jobs:
           pm2 stop all
         continue-on-error: true
       - name: Start Bot with PM2
+        with:
+          env:
+            DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
-          export DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           pm2 start index.js --name freebrunch-discord-bot
