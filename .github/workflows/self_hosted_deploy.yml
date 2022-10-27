@@ -30,5 +30,6 @@ jobs:
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
+          export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
           pm2 start index.js --name freebrunch-discord-bot
           pm2 list
