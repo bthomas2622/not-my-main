@@ -22,12 +22,12 @@ jobs:
         run: |
           npm install
           npm install pm2@latest -g
-      - name: PM2 Stop Existing Bot
-        run: |
-          pm2 stop all
-        continue-on-error: true
+      # - name: PM2 Stop Existing Bot
+      #   run: |
+      #     pm2 stop all
+      #   continue-on-error: true
       - name: Start Bot with PM2
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
-          pm2 start index.js --name "freebrunch-discord-bot" -- start
+          node index.js
