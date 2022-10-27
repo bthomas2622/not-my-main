@@ -30,4 +30,4 @@ jobs:
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
-          sudo pm2 reload index.js
+          pm2 reload index.js
