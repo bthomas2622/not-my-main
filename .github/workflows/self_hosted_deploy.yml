@@ -30,4 +30,6 @@ jobs:
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
-          pm2 reload index.js
+          pm2 start index.js --name "freeBrunch Discord Bot"
+          pm2 startup
+          pm2 save
