@@ -4,15 +4,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
-    runs-on: self-hosted
+  kill-bot:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: SSH and restart updated discord bot
+        uses: appleboy/ssh-action@master
         with:
-          node-version: latest
-      - name: Start Bot with PM2
-        run: |
-          pm2 stop all
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            pm2 stop freeBrunch-bot

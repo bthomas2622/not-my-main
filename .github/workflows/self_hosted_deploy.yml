@@ -1,4 +1,4 @@
-name: Deploy Discord Bot to Self Hosted Runner
+name: Deploy Discord Bot
 
 on:
   workflow_dispatch:
@@ -10,20 +10,17 @@ on:
 
 jobs:
   deploy-bot:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: SSH and restart updated discord bot
+        uses: appleboy/ssh-action@master
         with:
-          node-version: latest
-      - name: Install Dependencies
-        run: |
-          npm install
-          npm install pm2@latest -g
-      - name: Start Bot with PM2
-        env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-        run: |
-          pm2 restart freeBrunch-Discord-Bot || pm2 start index.js --name "freeBrunch-Discord-Bot" -- start
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /freebrunch-discord-bot
+            git pull origin master
+            npm install
+            pm2 restart freeBrunch-bot
