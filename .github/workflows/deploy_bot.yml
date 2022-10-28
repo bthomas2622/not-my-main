@@ -24,3 +24,4 @@ jobs:
             git pull origin master
             npm install
             pm2 restart freeBrunch-bot
+            echo "Bot restarted"
