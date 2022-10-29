@@ -14,11 +14,11 @@ name: "CodeQL"
 on:
   push:
     branches: [ "main" ]
-    paths-ignore: README.md, LICENSE, package.json, package-lock.json
+    paths-ignore: [README.md, LICENSE, package.json, package-lock.json, ".github/**"]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
-    paths-ignore: README.md, LICENSE, package.json, package-lock.json
+    paths-ignore: [README.md, LICENSE, package.json, package-lock.json, ".github/**"]
     
 jobs:
   analyze:
