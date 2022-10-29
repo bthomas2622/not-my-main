@@ -28,7 +28,7 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
   - `npm install pm2@latest -g`
   - `pm2 start index.js --name freeBrunch-bot` (or chosen name you will specify in [.github/workflows/deploy.bot.yml](https://github.com/bthomas2622/freeBrunch-discord-bot/blob/main/.github/workflows/deploy_bot.yml#L27))
 
-Now the self hosted server is ready for the `deploy-bot` github action to pull latest changes and restart the bot.
+Now the self hosted server is ready for the `deploy-bot.yml` github action to pull latest changes and restart the bot.
 
 **Cloud Host**
   
