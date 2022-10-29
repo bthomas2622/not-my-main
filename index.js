@@ -25,7 +25,7 @@ client.on('interactionCreate', async interaction => {
     let num = Math.random();
     let coin;
     if (num < 0.5) { coin = "HEADS";} else { coin = "TAILS";}
-    await interaction.reply("test")
+    await interaction.reply(coin)
   }
   else if (interaction.commandName === 'd6') {
     await interaction.reply(String(Math.floor(Math.random() * 6) + 1))
