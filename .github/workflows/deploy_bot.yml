@@ -22,6 +22,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd freeBrunch-discord-bot
-            git pull origin master
+            git pull origin main
             npm install
             pm2 restart freeBrunch-bot
