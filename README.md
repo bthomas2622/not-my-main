@@ -11,7 +11,7 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 
 ### Dev
 
-**Holy Bible**
+**Core Docs**
 - https://discordjs.guide/
 
 **Prerequisites**
