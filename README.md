@@ -17,7 +17,7 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 **Prerequisites**
 1. [Create your bot](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot) and [invite to your discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#bot-invite-links) (this bot will be what is running "freeBrunch-discord-bot", will be source of tokens, clientids, etc.)
 
-**Self Host** (CI/CD in this repo prepped for this)
+**Self Host** (to use [GitHub Actions](https://github.com/bthomas2622/freeBrunch-discord-bot/blob/main/.github/workflows) in this repo)
 
 2. Obtain dedicated self hosted server. In my case a [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/).
 3. [Setup SSH auth](https://pimylifeup.com/raspberry-pi-ssh-keys/) to self hosted server and [ensure server is accessable via internet](https://jimsparkle.medium.com/raspberry-pi-dummy-tutorial-on-port-forwarding-and-ssh-to-pi-remotely-d4fbc2ed3bdf).
