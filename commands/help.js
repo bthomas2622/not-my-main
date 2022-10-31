@@ -7,7 +7,7 @@ module.exports = {
         .setDescription('Lists all available commands'),
     async execute(interaction) {
         let str
-        const commandFiles = fs.readdirSync('../commands').filter(file => file.endsWith('.js'));
+        const commandFiles = fs.readdirSync(__dirname).filter(file => file.endsWith('.js'));
 
         for (const file of commandFiles) {
         const command = require(`./${file}`);

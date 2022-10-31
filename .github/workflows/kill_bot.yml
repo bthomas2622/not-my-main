@@ -1,4 +1,4 @@
-name: Kill Discord Bot
+name: Kill Discord Bot on Production
 
 on:
   workflow_dispatch:
