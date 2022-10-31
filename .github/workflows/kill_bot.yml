@@ -7,7 +7,7 @@ jobs:
   kill-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH and restart updated discord bot
+      - name: SSH and stop discord bot
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}

@@ -7,7 +7,7 @@ jobs:
   deploy-bot-commands-dev:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH and restart updated discord bot
+      - name: SSH and run deploy bot commands dev script
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
