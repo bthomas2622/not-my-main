@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const legends = require('./apex_legends.json');
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Events, Collection, GatewayIntentBits } = require('discord.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
