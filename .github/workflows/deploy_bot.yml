@@ -25,7 +25,6 @@ jobs:
           envs: DISCORD_TOKEN
           script: |
             cd freeBrunch-discord-bot
-            git stash
-            git pull origin main
+            git stash && git pull origin main
             npm install
-            pm2 restart freeBrunch-bot
+            export DISCORD_TOKEN=$DISCORD_TOKEN && pm2 restart freeBrunch-bot
