@@ -1,43 +1,47 @@
+const fs = require('node:fs');
+const path = require('node:path');
 const legends = require('./apex_legends.json');
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+client.commands = new Collection();
+
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	// Set a new item in the Collection with the key as the command name and the value as the exported module
+	if ('data' in command && 'execute' in command) {
+		client.commands.set(command.data.name, command);
+	} else {
+		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+	}
+}
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
-  
-client.on('interactionCreate', async interaction => {
-  if (!interaction.isCommand()) return;
 
-  const apexLegendList = Object.keys(legends);
-  // const apexLegendList = ['Ash', 'Bangalore', 'Bloodhound', "Caustic", "Crypto", "Fuse", "Gibraltar", "Horizon", "Lifeline", "Loba", "Mad Maggie", "Mirage", "Octane", "Pathfinder", "Rampart", "Revenant", "Seer", "Valkyrie", "Wattson", "Wraith"]
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+	
+  const command = interaction.client.commands.get(interaction.commandName);
 
-  if (interaction.commandName === 'commands') {
-    await interaction.reply("/nmm" + "\n" + "/coinflip" + "\n" + "/d6" + "\n" + "/d20" + "\n" + "/dad");
-  }
-  else if (interaction.commandName === 'nmm') {
-    let chosenLegend = apexLegendList[Math.floor(Math.random() * apexLegendList.length)];
-    let chosenLegendVoiceLines = legends[chosenLegend];
-    await interaction.reply("**" + chosenLegend + "**" + " - " + '"' + chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)] + '"');
-  }
-  else if (interaction.commandName === 'coinflip') {
-    let num = Math.random();
-    let coin;
-    if (num < 0.5) { coin = "HEADS";} else { coin = "TAILS";}
-    await interaction.reply(coin)
-  }
-  else if (interaction.commandName === 'd6') {
-    await interaction.reply(String(Math.floor(Math.random() * 6) + 1))
-  }
-  else if (interaction.commandName === 'd20') {
-    await interaction.reply(String(Math.floor(Math.random() * 20) + 1))
-  }
-  else if (interaction.commandName === 'dad') {
-    await interaction.reply("son?")
-  }
-  
+	if (!command) {
+		console.error(`No command matching ${interaction.commandName} was found.`);
+		return;
+	}
 
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 });
+
 
 client.login(process.env.DISCORD_TOKEN);

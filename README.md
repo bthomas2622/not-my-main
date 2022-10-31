@@ -3,8 +3,8 @@
 A simply fun [Discord](https://discord.com/) bot for your Discord server.
 
 ### Bot Commands
-- `/commands` -> List bot commands
-- `/nmm` -> "Not My Main", generates a random Apex Legends champion
+- `/help` -> List bot commands
+- `/apexNotMyMain` -> "Not My Main", generates a random Apex Legends champion
 - `/coinflip` -> Flip a coin
 - `/d6` -> Roll a d6
 - `/d20` -> Roll a d20
@@ -23,7 +23,6 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 3. [Setup SSH auth](https://pimylifeup.com/raspberry-pi-ssh-keys/) to self hosted server and [ensure server is accessable via internet](https://jimsparkle.medium.com/raspberry-pi-dummy-tutorial-on-port-forwarding-and-ssh-to-pi-remotely-d4fbc2ed3bdf).
 4. `git clone` [freeBrunch-discord-bot](https://github.com/bthomas2622/freeBrunch-discord-bot) to home directory (or directory you will cd into in [.github/workflows/deploy-bot.yml](https://github.com/bthomas2622/freeBrunch-discord-bot/blob/main/.github/workflows/deploy_bot.yml#L24)).
 5. `cd` to directory and run:
-  - `export DISCORD_TOKEN=discord_app_token123`
   - `npm install`
   - `npm install pm2@latest -g`
   - `pm2 start index.js --name freeBrunch-bot` (or chosen name you will specify in [.github/workflows/deploy.bot.yml](https://github.com/bthomas2622/freeBrunch-discord-bot/blob/main/.github/workflows/deploy_bot.yml#L27))
