@@ -25,4 +25,4 @@ jobs:
             git stash
             git pull origin main
             npm install
-            node deploy-commands-dev.js
+            export DISCORD_TOKEN=$DISCORD_TOKEN && export DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID && export DISCORD_DEV_GUILD_ID=$DISCORD_DEV_GUILD_ID && node deploy-commands-dev.js
