@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-bot:
+  delete-bot-commands:
     runs-on: ubuntu-latest
     steps:
       - name: SSH and restart updated discord bot
