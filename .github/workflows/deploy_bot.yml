@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: SSH and restart updated discord bot
-        uses: appleboy/ssh-action@master
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
