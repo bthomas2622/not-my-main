@@ -12,7 +12,7 @@ module.exports = {
         for (const file of commandFiles) {
         const command = require(`./${file}`);
             if (command.data.name) {
-                str += `Command: ${command.data.name} - ${command.data.description} \n`;
+                str += `/${command.data.name} - ${command.data.description} \n`;
             }
         }
 
