@@ -6,13 +6,13 @@ module.exports = {
         .setName('help')
         .setDescription('List all available commands'),
     async execute(interaction) {
-        let str;
+        let str = '';
         const commandFiles = fs.readdirSync(__dirname).filter(file => file.endsWith('.js'));
 
         for (const file of commandFiles) {
         const command = require(`./${file}`);
             if (command.data.name) {
-                str += `Name: ${command.data.name}, Description: ${command.data.description} \n`;
+                str += `Command: ${command.data.name} - ${command.data.description} \n`;
             }
         }
 
