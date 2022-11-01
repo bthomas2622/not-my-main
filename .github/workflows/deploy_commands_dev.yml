@@ -10,8 +10,7 @@ jobs:
       - name: SSH and run deploy bot commands dev script
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
-          DISCORD_DEV_GUILD_ID: ${{ secrets.DISCORD_DEV_GUILD_ID }}
+          DISCORD_DEV_CLIENT_ID: ${{ secrets.DISCORD_DEV_CLIENT_ID }}
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -19,9 +18,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT }}
-          envs: DISCORD_TOKEN, DISCORD_CLIENT_ID, DISCORD_DEV_GUILD_ID
+          envs: DISCORD_DEV_TOKEN, DISCORD_DEV_CLIENT_ID
           script: |
             cd freeBrunch-discord-bot
             git stash && git pull origin main
             npm install
-            export DISCORD_TOKEN=$DISCORD_TOKEN && export DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID && export DISCORD_DEV_GUILD_ID=$DISCORD_DEV_GUILD_ID && node deploy-commands-dev.js
+            export DISCORD_DEV_TOKEN=$DISCORD_DEV_TOKEN && export DISCORD_DEV_CLIENT_ID=$DISCORD_DEV_CLIENT_ID && node deploy-commands-dev.js

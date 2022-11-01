@@ -23,4 +23,4 @@ jobs:
             cd freeBrunch-discord-bot
             git stash && git pull origin main
             npm install
-            export DISCORD_TOKEN=$DISCORD_TOKEN && export DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID && node deploy-commands-global.js
+            export DISCORD_TOKEN=$DISCORD_TOKEN && export DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID && node deploy-commands.js
