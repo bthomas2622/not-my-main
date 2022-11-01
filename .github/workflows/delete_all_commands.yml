@@ -1,4 +1,4 @@
-name: Delete All Bot Commands on All Servers
+name: Delete All Bot Commands on Prod Server
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT }}
-          envs: DISCORD_TOKEN, DISCORD_CLIENT_ID
+          envs: DISCORD_TOKEN, DISCORD_CLIENT_ID, DISCORD_GUILD_ID, DISCORD_DEV_GUILD_ID
           script: |
             cd freeBrunch-discord-bot
             git stash && git pull origin main

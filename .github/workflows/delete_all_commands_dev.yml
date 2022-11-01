@@ -1,4 +1,4 @@
-name: Delete All Bot Commands on All Servers
+name: Delete All Bot Commands on Dev Server
 
 on:
   workflow_dispatch:
