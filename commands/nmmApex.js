@@ -10,6 +10,6 @@ module.exports = {
         let chosenLegend = apexLegendList[Math.floor(Math.random() * apexLegendList.length)];
         let chosenLegendVoiceLines = legends[chosenLegend];
         let response = "**" + chosenLegend + "**" + " - " + '"' + chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)] + '"';
-        await interaction.reply(response)
+        await interaction.reply(response, { files: ['./' + chosenLegend + '.png'] });
 	},
 };
