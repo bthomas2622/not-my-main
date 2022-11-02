@@ -1,13 +1,23 @@
-name: Kill Discord Bot on Production
+name: Kill Discord Bot
 
 on:
   workflow_dispatch:
+    inputs:
+    environment:
+      description: 'Deployment environment'
+      required: true
+      default: 'dev'
+      type: choice
+      options:
+        - 'dev'
+        - 'prod'
 
 jobs:
-  kill-bot:
+  kill-bot-prod:
+    if : ${{ github.event.inputs.environment == 'prod' }}
     runs-on: ubuntu-latest
     steps:
-      - name: SSH and stop discord bot
+      - name: SSH and stop discord bot on prod
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -17,3 +27,18 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             pm2 stop freeBrunch-bot
+
+  kill-bot-dev:
+    if : ${{ github.event.inputs.environment == 'dev' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and stop discord bot on dev
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            pm2 stop freeBrunch-bot-dev
