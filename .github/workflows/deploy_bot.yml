@@ -27,4 +27,4 @@ jobs:
             cd freeBrunch-discord-bot
             git stash && git pull origin main
             npm install
-            export DISCORD_TOKEN=$DISCORD_TOKEN && export NODE_ENV=production && pm2 restart freeBrunch-bot
+            export DISCORD_TOKEN=$DISCORD_TOKEN && export NODE_ENV=production && pm2 restart freeBrunch-bot --update-env
