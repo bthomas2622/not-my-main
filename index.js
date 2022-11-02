@@ -43,5 +43,8 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-
-client.login(process.env.DISCORD_TOKEN);
+if (process.env.NODE_ENV === 'production') {
+	client.login(process.env.DISCORD_TOKEN);
+} else {
+	client.login(process.env.DISCORD_DEV_TOKEN);
+}

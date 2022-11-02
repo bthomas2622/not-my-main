@@ -21,6 +21,6 @@ jobs:
           envs: DISCORD_DEV_TOKEN, DISCORD_DEV_CLIENT_ID
           script: |
             cd freeBrunch-discord-bot
-            git stash && git pull origin main
+            git stash && git pull origin dev
             npm install
             export DISCORD_DEV_TOKEN=$DISCORD_DEV_TOKEN && export DISCORD_DEV_CLIENT_ID=$DISCORD_DEV_CLIENT_ID && node delete-all-commands-dev.js
