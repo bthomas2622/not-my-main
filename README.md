@@ -21,16 +21,16 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 
 2. Obtain dedicated self hosted server. In my case a [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/).
 3. [Setup SSH auth](https://pimylifeup.com/raspberry-pi-ssh-keys/) to self hosted server and [ensure server is accessable via internet](https://jimsparkle.medium.com/raspberry-pi-dummy-tutorial-on-port-forwarding-and-ssh-to-pi-remotely-d4fbc2ed3bdf).
-4. `git clone` [freeBrunch-discord-bot](https://github.com/bthomas2622/freeBrunch-discord-bot) to home directory (or directory you will cd into in [.github/workflows/deploy-bot.yml](https://github.com/bthomas2622/freeBrunch-discord-bot/blob/main/.github/workflows/deploy_bot.yml#L24)).
+4. `git clone` [freeBrunch-discord-bot](https://github.com/bthomas2622/freeBrunch-discord-bot) to home directory (or directory you will cd into in [.github/workflows/deploy-bot.yml](https://github.com/bthomas2622/freeBrunch-discord-bot/blob/main/.github/workflows/deploy_bot.yml#L39)).
 5. `cd` to directory and run:
   - `npm install`
   - `npm install pm2@latest -g`
-  - `pm2 start index.js --name freeBrunch-bot` (or chosen name you will specify in [.github/workflows/deploy.bot.yml](https://github.com/bthomas2622/freeBrunch-discord-bot/blob/main/.github/workflows/deploy_bot.yml#L27))
+  - `pm2 start index.js --name freeBrunch-bot` (or chosen name you will specify in [.github/workflows/deploy.bot.yml](https://github.com/bthomas2622/freeBrunch-discord-bot/blob/main/.github/workflows/deploy_bot.yml#L42))
 
 Now the self hosted server is ready for the `deploy-bot.yml` github action to pull latest changes and restart the bot.
 
 **Cloud Host**
   
- 2. [Google](https://www.google.com/search?q=where+to+cloud+host+discord+bot)
+ 2. [Many options](https://www.google.com/search?q=where+to+cloud+host+discord+bot)
 
 
