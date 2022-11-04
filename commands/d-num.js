@@ -12,6 +12,6 @@ module.exports = {
                 .setMinValue(2)),
     async execute(interaction) {
         const sides = interaction.options.getInteger('sides');
-        await interaction.reply(`Sides: ${sides}\nRolled: ${String(Math.floor(Math.random() * sides) + 1)}`)
+        await interaction.reply(`**Sides**: ${sides}\n**Rolled**: ${String(Math.floor(Math.random() * sides) + 1)}`)
 	},
 };

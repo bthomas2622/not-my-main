@@ -1,4 +1,4 @@
-name: Deploy Bot Commands to Discord Server
+name: Deploy Bot Commands
 
 on:
   workflow_dispatch:
