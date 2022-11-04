@@ -12,6 +12,6 @@ module.exports = {
     async execute(interaction) {
         const options = interaction.options.getString('options');
         const optionsArray = options.split(',');
-        await interaction.reply(optionsArray[Math.floor(Math.random() * optionsArray.length)])
+        await interaction.reply(`**Options Given**: ${options}\n**Chosen**: ${optionsArray[Math.floor(Math.random() * optionsArray.length)]}`)
 	},
 };
