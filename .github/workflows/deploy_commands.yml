@@ -33,7 +33,7 @@ jobs:
             cd freeBrunch-discord-bot
             git stash && git pull origin main
             npm install
-            export DISCORD_TOKEN=$DISCORD_TOKEN && export DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID && node deploy-commands.js
+            export DISCORD_TOKEN=$DISCORD_TOKEN && export DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID && node discord-scripts/deploy-commands.js
 
   deploy-bot-commands-dev:
     if : ${{ github.event.inputs.environment == 'dev' }}
@@ -55,4 +55,4 @@ jobs:
             cd freeBrunch-discord-bot-dev
             git stash && git pull origin dev
             npm install
-            export DISCORD_DEV_TOKEN=$DISCORD_DEV_TOKEN && export DISCORD_DEV_CLIENT_ID=$DISCORD_DEV_CLIENT_ID && node deploy-commands-dev.js
+            export DISCORD_DEV_TOKEN=$DISCORD_DEV_TOKEN && export DISCORD_DEV_CLIENT_ID=$DISCORD_DEV_CLIENT_ID && node discord-scripts/deploy-commands-dev.js

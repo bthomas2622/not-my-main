@@ -5,9 +5,11 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 ### Bot Commands
 - `/help` -> List bot commands
 - `/apex-not-my-main` -> "Not My Main", generates a random Apex Legends champion
-- `/coinflip` -> Flip a coin
+- `/pick-one`-> Input a comma separated list of options and pick one randomly
+- `/coin-flip` -> Flip a coin
 - `/d6` -> Roll a d6
 - `/d20` -> Roll a d20
+- `/d-num` -> Roll a die with input number of sides
 
 ### Dev
 
