@@ -7,8 +7,8 @@ module.exports = {
         .addStringOption(option =>
             option.setName('Options')
                 .setDescription('Comma separated list of things to choose from')
-                .setMinLength(1)
-                .setRequired(true)),
+                .setRequired(true)
+                .setMinLength(1)),
     async execute(interaction) {
         const options = interaction.options.getString('Options');
         const optionsArray = options.split(',');
