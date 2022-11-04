@@ -9,7 +9,7 @@ module.exports = {
                 const apexLegendList = Object.keys(legends);
                 let chosenLegend = apexLegendList[Math.floor(Math.random() * apexLegendList.length)];
                 let chosenLegendVoiceLines = legends[chosenLegend];
-                let response = "**" + chosenLegend + "**" + " - " + '"' + chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)] + '"';
+                let response = "**" + chosenLegend.replace(/_/g, ' ') + "**" + " - " + '"' + chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)] + '"';
                 let attachment = new AttachmentBuilder().setName(chosenLegend + '.png').setFile('./pics/apex/' + chosenLegend + '.png');
                 await interaction.reply({
                         content: response, 
