@@ -1,7 +1,7 @@
 const { getGames } = require("epic-free-games");
 
 // send free games to general discord channel
-export const sendGames = async (client) => {
+const sendGames = async (client) => {
     try {
         let message = "";
         await getGames("US", true).then((games) => {
@@ -26,3 +26,5 @@ getGames("US", true).then((games) => {
   const message = `**Current Free Games**\n${curentFreeGames}\n\n**Next Free Games**\n${nextFreeGames}`;
   return message;
 });
+
+exports.sendGames = sendGames;
