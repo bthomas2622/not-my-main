@@ -26,12 +26,12 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   // send free games to general discord channel every minute
-  cron.schedule('* * * * *', () => {
-		sendGames(client);
-	}, {
-	scheduled: true,
-	timezone: "America/Los_Angeles"
-	});
+//   cron.schedule('* * * * *', () => {
+// 		sendGames(client);
+// 	}, {
+// 	scheduled: true,
+// 	timezone: "America/Los_Angeles"
+// 	});
 //   cron.schedule('0 8 * * 1', () => {
 // 	sendGames(client);
 //   	}, {
