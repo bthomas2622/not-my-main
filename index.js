@@ -1,7 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const legends = require('./apex_legends.json');
+const cron = require('node-cron');
 const { Client, Events, Collection, GatewayIntentBits } = require('discord.js');
+const sendGames = require('./bot-scripts/epic-free-games.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -23,7 +24,22 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+
+  // send free games to general discord channel every minute
+  cron.schedule('*/1 * * * *', () => {
+		sendGames(client);
+	}, {
+	scheduled: true,
+	timezone: "America/Los_Angeles"
+	});
+//   cron.schedule('0 8 * * 1', () => {
+// 	sendGames(client);
+//   	}, {
+// 	scheduled: true,
+// 	timezone: "America/Los_Angeles"
+// 	});
 });
+
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
