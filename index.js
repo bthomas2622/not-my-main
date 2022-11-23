@@ -25,6 +25,7 @@ for (const file of commandFiles) {
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
+  sendGames(client);
   // send free games to general discord channel every minute
 //   cron.schedule('* * * * *', () => {
 // 		sendGames(client);
