@@ -1,9 +1,9 @@
 const { getGames } = require("epic-free-games");
 
 // send free games to general discord channel
-const sendGames = async (client) => {
+const sendGames = async () => {
+    let message = "";
     try {
-        let message = "";
         await getGames("US", true).then((games) => {
             const curentFreeGames = games.currentGames.map((game) => game.title).join("\n");
             const nextFreeGames = games.currentGames.map((game) => game.title).join("\n");
@@ -12,12 +12,12 @@ const sendGames = async (client) => {
             message = 'Error fetching games.';
             console.log(err);
         });
-        const channel = client.channels.cache.get('general');
-        channel.send(message);
+        return message;
     }
     catch (error) {
         console.error(error);
     }
+    return message;
 };
 
 getGames("US", true).then((games) => {
