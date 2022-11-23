@@ -26,7 +26,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   // send free games to general discord channel every minute
-  cron.schedule('*/1 * * * *', () => {
+  cron.schedule('* * * * *', () => {
 		sendGames(client);
 	}, {
 	scheduled: true,
