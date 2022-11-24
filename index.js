@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const cron = require('node-cron');
-const { Client, Events, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const { getFreeEPICGamesFormatted } = require('./bot-scripts/epic-free-games.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -47,7 +47,7 @@ client.on('ready', () => {
 client.once(Events.ClientReady, async () => {
 	try {
 		let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
-		await getFreeEPICGamesFormatted().then((message) => {generalChannel.send(message);});
+		await getFreeEPICGamesFormatted().then((message) => {generalChannel.send({ embed: new EmbedBuilder().setDescription(message)});});
 	} catch (error) {
 		console.error(error);
 	}
