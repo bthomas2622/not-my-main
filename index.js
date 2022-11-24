@@ -56,9 +56,6 @@ client.once(Events.ClientReady, async () => {
 		} catch (error) {
 			console.error(error);
 		}
-	}, {
-	scheduled: true,
-	timezone: "America/Los_Angeles"
 	});
 });
 
