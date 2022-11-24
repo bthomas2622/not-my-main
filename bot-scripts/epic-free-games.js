@@ -1,23 +1,16 @@
 const { getGames } = require("epic-free-games");
 
-// send free games to general discord channel
-const sendGames = async () => {
+const getFreeEPICGamesFormatted = async () => {
     let message = "";
-    try {
-        await getGames("US", true).then((games) => {
-            const curentFreeGames = games.currentGames.map((game) => game.title).join("\n");
-            const nextFreeGames = games.currentGames.map((game) => game.title).join("\n");
-            message = `**Current Free Games**\n${curentFreeGames}\n\n**Next Free Games**\n${nextFreeGames}`;
-          }).catch((err) => {
-            message = 'Error fetching games.';
-            console.log(err);
-        });
-        return message;
-    }
-    catch (error) {
-        console.error(error);
-    }
+    await getGames("US", true).then((games) => {
+        const curentFreeGames = games.currentGames.map((game) => `[${game.title}](https://store.epicgames.com/en-US/p/${game.productSlug})`).join("\n");
+        const nextFreeGames = games.nextGames.map((game) => `[${game.title}](https://store.epicgames.com/en-US/p/${game.productSlug})`).join("\n");
+        message = `**EPIC Free Games**\n**Now**\n${curentFreeGames}\n**Coming Soon**\n${nextFreeGames}`;
+        }).catch((err) => {
+        message = 'Error fetching games.';
+        console.log(err);
+    });
     return message;
 };
 
-module.exports = { sendGames };
+module.exports = { getFreeEPICGamesFormatted };
