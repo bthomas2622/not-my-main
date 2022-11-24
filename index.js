@@ -29,6 +29,8 @@ client.on('ready', () => {
 // call function only once after client is ready
 client.once(Events.ClientReady, async () => {
 	const rule = new schedule.RecurrenceRule();
+	rule.dayOfWeek = 4;
+	rule.hour = 9;
 	rule.second = 0;
 	rule.tz = 'America/Los_Angeles';
 
