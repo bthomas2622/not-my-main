@@ -1,7 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const legends = require('./apex_legends.json');
-const { Client, Events, Collection, GatewayIntentBits } = require('discord.js');
+const schedule = require('node-schedule');
+const { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { getFreeEPICGamesFormatted } = require('./bot-scripts/epic-free-games.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -25,10 +26,30 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+// call function only once after client is ready
+client.once(Events.ClientReady, async () => {
+	const rule = new schedule.RecurrenceRule();
+	rule.dayOfWeek = 4;
+	rule.hour = 9;
+	rule.second = 0;
+	rule.tz = 'America/Los_Angeles';
+
+	schedule.scheduleJob(rule, async function(){
+		try {
+			let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
+			await getFreeEPICGamesFormatted().then((message) => {generalChannel.send({ embeds: [new EmbedBuilder().setDescription(message).setTitle('EPIC Free Games')]});});
+		} catch (error) {
+			console.error(error);
+		}
+	});
+});
+
+
+
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 	
-  const command = interaction.client.commands.get(interaction.commandName);
+  	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
 		console.error(`No command matching ${interaction.commandName} was found.`);
