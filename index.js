@@ -45,7 +45,11 @@ client.on('ready', () => {
 
 // call function only once after client is ready
 client.once(Events.ClientReady, async () => {
-	schedule.scheduleJob('* * * * *', async () => {
+	const rule = new schedule.RecurrenceRule();
+	rule.second = 0;
+	rule.tz = 'America/Los_Angeles';
+
+	schedule.scheduleJob(rule, async () => {
 		try {
 			let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
 			await getFreeEPICGamesFormatted().then((message) => {generalChannel.send({ embeds: [new EmbedBuilder().setDescription(message).setTitle('EPIC Free Games')]});});
