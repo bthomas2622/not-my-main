@@ -24,23 +24,6 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-//   let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
-//   generalChannel.send('test');
-  //sendGames().then((message) => {generalChannel.send(message);});
-
-  // send free games to general discord channel every minute
-//   cron.schedule('* * * * *', () => {
-// 		sendGames(client);
-// 	}, {
-// 	scheduled: true,
-// 	timezone: "America/Los_Angeles"
-// 	});
-//   cron.schedule('0 8 * * 1', () => {
-// 	sendGames(client);
-//   	}, {
-// 	scheduled: true,
-// 	timezone: "America/Los_Angeles"
-// 	});
 });
 
 // call function only once after client is ready
@@ -49,7 +32,7 @@ client.once(Events.ClientReady, async () => {
 	rule.second = 0;
 	rule.tz = 'America/Los_Angeles';
 
-	schedule.scheduleJob(rule, async () => {
+	schedule.scheduleJob(rule, async function(){
 		try {
 			let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
 			await getFreeEPICGamesFormatted().then((message) => {generalChannel.send({ embeds: [new EmbedBuilder().setDescription(message).setTitle('EPIC Free Games')]});});
