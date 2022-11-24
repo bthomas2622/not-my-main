@@ -25,7 +25,7 @@ for (const file of commandFiles) {
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 	
-  let generalChannel = client.guilds[0].channels.find(
+  let generalChannel = client.guilds.cache.first.channels.find(
 	channel => channel.name.toLowerCase() === "general"
   )
 
