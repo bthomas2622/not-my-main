@@ -47,7 +47,7 @@ client.on('ready', () => {
 client.once(Events.ClientReady, async () => {
 	try {
 		let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
-		await getFreeEPICGamesFormatted().then((message) => {generalChannel.send({embed: message});});
+		await getFreeEPICGamesFormatted().then((message) => {generalChannel.send(message);});
 	} catch (error) {
 		console.error(error);
 	}
