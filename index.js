@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const cron = require('node-cron');
 const { Client, Events, Collection, GatewayIntentBits } = require('discord.js');
-const sendGames = require('./bot-scripts/epic-free-games.js');
+const { sendGames } = require('./bot-scripts/epic-free-games.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -24,8 +24,8 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
-  generalChannel.send('test');
+//   let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
+//   generalChannel.send('test');
   //sendGames().then((message) => {generalChannel.send(message);});
 
   // send free games to general discord channel every minute
@@ -42,6 +42,14 @@ client.on('ready', () => {
 // 	timezone: "America/Los_Angeles"
 // 	});
 });
+
+// call function only once after client is ready
+client.once(Events.ClientReady, () => {
+	let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
+  	generalChannel.send('test');
+	sendGames().then((message) => {generalChannel.send(message);});
+});
+
 
 
 client.on(Events.InteractionCreate, async interaction => {

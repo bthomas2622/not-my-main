@@ -20,11 +20,4 @@ const sendGames = async () => {
     return message;
 };
 
-getGames("US", true).then((games) => {
-  const curentFreeGames = games.currentGames.map((game) => game.title).join("\n");
-  const nextFreeGames = games.currentGames.map((game) => game.title).join("\n");
-  const message = `**Current Free Games**\n${curentFreeGames}\n\n**Next Free Games**\n${nextFreeGames}`;
-  return message;
-});
-
-exports.sendGames = sendGames;
+module.exports = { sendGames };
