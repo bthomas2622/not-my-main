@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const cron = require('node-cron');
+const schedule = require('node-schedule');
 const { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const { getFreeEPICGamesFormatted } = require('./bot-scripts/epic-free-games.js');
 
@@ -45,12 +45,17 @@ client.on('ready', () => {
 
 // call function only once after client is ready
 client.once(Events.ClientReady, async () => {
-	try {
-		let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
-		await getFreeEPICGamesFormatted().then((message) => {generalChannel.send({ embeds: [new EmbedBuilder().setDescription(message)]});});
-	} catch (error) {
-		console.error(error);
-	}
+	schedule.scheduleJob('* * * * *', async () => {
+		try {
+			let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
+			await getFreeEPICGamesFormatted().then((message) => {generalChannel.send({ embeds: [new EmbedBuilder().setDescription(message).setTitle('EPIC Free Games')]});});
+		} catch (error) {
+			console.error(error);
+		}
+	}, {
+	scheduled: true,
+	timezone: "America/Los_Angeles"
+	});
 });
 
 
