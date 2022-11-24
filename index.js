@@ -24,8 +24,14 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+	
+  let generalChannel = client.guilds[0].channels.find(
+	channel => channel.name.toLowerCase() === "general"
+  )
 
-  sendGames().then((message) => {client.channels.cache.get('general').send(message);});
+  generalChannel.send('test');
+  sendGames().then((message) => {generalChannel.send(message);});
+
   // send free games to general discord channel every minute
 //   cron.schedule('* * * * *', () => {
 // 		sendGames(client);
