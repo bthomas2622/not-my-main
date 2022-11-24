@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const cron = require('node-cron');
 const { Client, Events, Collection, GatewayIntentBits } = require('discord.js');
-const { sendGames } = require('./bot-scripts/epic-free-games.js');
+const { getFreeEPICGamesFormatted } = require('./bot-scripts/epic-free-games.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -44,10 +44,13 @@ client.on('ready', () => {
 });
 
 // call function only once after client is ready
-client.once(Events.ClientReady, () => {
-	let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
-  	generalChannel.send('test');
-	sendGames().then((message) => {generalChannel.send(message);});
+client.once(Events.ClientReady, async () => {
+	try {
+		let generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
+		await getFreeEPICGamesFormatted().then((message) => {generalChannel.send(message);});
+	} catch (error) {
+		console.error(error);
+	}
 });
 
 
@@ -55,7 +58,7 @@ client.once(Events.ClientReady, () => {
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 	
-  const command = interaction.client.commands.get(interaction.commandName);
+  	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
 		console.error(`No command matching ${interaction.commandName} was found.`);
