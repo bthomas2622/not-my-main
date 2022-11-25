@@ -30,8 +30,9 @@ client.on('ready', () => {
 client.once(Events.ClientReady, async () => {
 	const rule = new schedule.RecurrenceRule();
 	rule.dayOfWeek = 4;
-	rule.hour = 9;
 	rule.second = 0;
+	rule.minute = 0;
+	rule.hour = 9;
 	rule.tz = 'America/Los_Angeles';
 
 	schedule.scheduleJob(rule, async function(){
