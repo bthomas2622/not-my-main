@@ -11,7 +11,10 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 - `/d20` -> Roll a d20
 - `/d-num` -> Roll a die with input number of sides
 
-### Dev
+### Bot Scheduled Messages
+- Post weekly free Epic Games Store games every Thursday to `#general` channel
+
+### Dev Guide
 
 **Core Docs**
 - https://discordjs.guide/
