@@ -23,7 +23,7 @@ module.exports = {
             if (target === 'awoken') {
                 let patrickTFTRankings = await getTFTRankings('FigFire');
                 let benTFTRankings = await getTFTRankings('freeBrunch');
-                let awokenApexRankings = await staggerApexRankings('freeBrunch', 'FigFire1', 'alliedengineer');
+                let awokenApexRankings = await staggerApexRankings(['freeBrunch', 'FigFire1', 'alliedengineer']);
                 let patrickApexRanking = awokenApexRankings.FigFire1;
                 let benApexRanking = awokenApexRankings.freeBrunch;
                 let alexApexRanking = awokenApexRankings.alliedengineer;
