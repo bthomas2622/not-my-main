@@ -51,6 +51,7 @@ jobs:
         env:
           DISCORD_DEV_TOKEN: ${{ secrets.DISCORD_DEV_TOKEN }}
           APEX_API_KEY: ${{ secrets.APEX_API_KEY }}
+          RIOT_TFT_API_KEY: ${{ secrets.RIOT_TFT_API_KEY }}
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -58,7 +59,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT }}
-          envs: DISCORD_DEV_TOKEN, APEX_API_KEY
+          envs: DISCORD_DEV_TOKEN, APEX_API_KEY, RIOT_TFT_API_KEY
           script: |
             cd freeBrunch-discord-bot-dev
             git stash && git pull origin dev
