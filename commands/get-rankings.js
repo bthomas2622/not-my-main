@@ -29,7 +29,7 @@ module.exports = {
                     let patrickApexRanking = awokenApexRankings.FigFire1;
                     let benApexRanking = awokenApexRankings.freeBrunch;
                     let alexApexRanking = awokenApexRankings.alliedengineer;
-                    await interaction.editReply(`**Patrick**\n${rankingsFormatter(patrickTFTRankings, true, patrickApexRanking, true)}\n**Ben**\n${rankingsFormatter(benTFTRankings, true, benApexRanking, true)}\n**Alex**\n${rankingsFormatter(null, false, alexApexRanking, true)}`)    
+                    await interaction.editReply(`**Patrick**\n${rankingsFormatter(patrickTFTRankings, true, patrickApexRanking, true)}**Ben**\n${rankingsFormatter(benTFTRankings, true, benApexRanking, true)}**Alex**\n${rankingsFormatter(null, false, alexApexRanking, true)}`)    
                 } catch (error) {
                     console.log('error retrieving awoken rankings in get-rankings.js');
                     console.error(error);

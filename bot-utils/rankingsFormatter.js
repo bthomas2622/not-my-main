@@ -12,7 +12,7 @@ const rankingsFormatter = (tftRankings, tftBool, apexRanking, apexRankingBool) =
         if (tftBool) str += `No TFT rankings found\n`;
     }
     if (apexRanking) {
-        str += `Apex Ranked: ${apexRanking}\n`
+        str += `Apex Legends: ${apexRanking}\n`
     } else {
         if (apexRankingBool) str += 'No Apex rankings found';
     }
