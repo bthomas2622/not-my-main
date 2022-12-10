@@ -1,8 +1,8 @@
 const { getApexRanking } = require('../bot-scripts/get-apex-ranking.js');
 
-const staggerApexRankings = async (usernameObject) => {
+const staggerApexRankings = async (usernameArray) => {
     let awokenRankings = {};
-    for (const username of usernameObject) {
+    for (const username of usernameArray) {
         try {
             let playerRanking = await getApexRanking(username);
             if (playerRanking === null) {
@@ -11,7 +11,7 @@ const staggerApexRankings = async (usernameObject) => {
                 awokenRankings[username] = playerRanking;
             }
         } catch (error) {
-            console.log(`error retrieving apex rankings for ${username}`);
+            console.log(`error retrieving apex rankings for ${username} in staggerApexRankings`);
             console.error(error);
             awokenRankings[username] = "Unable to retrieve ranking";
         }
