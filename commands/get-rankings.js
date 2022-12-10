@@ -21,13 +21,20 @@ module.exports = {
             await interaction.reply(`Invalid option. Valid options are: ${options.join(', ')}`)
         } else {
             if (target === 'awoken') {
-                let patrickTFTRankings = await getTFTRankings('FigFire');
-                let benTFTRankings = await getTFTRankings('freeBrunch');
-                let awokenApexRankings = await staggerApexRankings(['freeBrunch', 'FigFire1', 'alliedengineer']);
-                let patrickApexRanking = awokenApexRankings.FigFire1;
-                let benApexRanking = awokenApexRankings.freeBrunch;
-                let alexApexRanking = awokenApexRankings.alliedengineer;
-                await interaction.reply(`**Patrick**\n${rankingsFormatter(patrickTFTRankings, true, patrickApexRanking, true)}\n**Ben**\n${rankingsFormatter(benTFTRankings, true, benApexRanking, true)}\n**Alex**\n${rankingsFormatter(null, false, alexApexRanking, true)}`)
+                try {
+                    await interaction.deferReply();
+                    let patrickTFTRankings = await getTFTRankings('FigFire');
+                    let benTFTRankings = await getTFTRankings('freeBrunch');
+                    let awokenApexRankings = await staggerApexRankings(['freeBrunch', 'FigFire1', 'alliedengineer']);
+                    let patrickApexRanking = awokenApexRankings.FigFire1;
+                    let benApexRanking = awokenApexRankings.freeBrunch;
+                    let alexApexRanking = awokenApexRankings.alliedengineer;
+                    await interaction.reply(`**Patrick**\n${rankingsFormatter(patrickTFTRankings, true, patrickApexRanking, true)}\n**Ben**\n${rankingsFormatter(benTFTRankings, true, benApexRanking, true)}\n**Alex**\n${rankingsFormatter(null, false, alexApexRanking, true)}`)    
+                } catch (error) {
+                    console.log('error retrieving awoken rankings in get-rankings.js');
+                    console.error(error);
+                    await interaction.reply('Unable to retrieve rankings for Awoken')
+                }
             } else if (target === 'ben') {
                 let benTFTRankings = await getTFTRankings('freeBrunch');
                 let benApexRanking = await getApexRanking('freeBrunch');
