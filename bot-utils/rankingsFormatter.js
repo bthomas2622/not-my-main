@@ -1,6 +1,6 @@
 const rankingsFormatter = (tftRankings, tftBool, apexRanking, apexRankingBool) => {
     let str = '';
-    if (tftRankings) {
+    if (tftRankings && tftRankings.length > 0) {
         for (let i = 0; i < tftRankings.length; i++) {
             if (tftRankings[i].queueType === 'RANKED_TFT') {
                 str += `TFT Solo: ${tftRankings[i].tier} ${tftRankings[i].rank} - ${tftRankings[i].leaguePoints} LP\n`
@@ -9,7 +9,7 @@ const rankingsFormatter = (tftRankings, tftBool, apexRanking, apexRankingBool) =
                 str += `TFT Duos: ${tftRankings[i].tier} ${tftRankings[i].rank} - ${tftRankings[i].leaguePoints} LP\n`
             }
     } else {
-        if (tftBool) str += 'No TFT rankings found';
+        if (tftBool) str += `No TFT rankings found\n`;
     }
     if (apexRanking) {
         str += `Apex Ranked: ${apexRanking}\n`
