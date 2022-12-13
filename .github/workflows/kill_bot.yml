@@ -3,14 +3,14 @@ name: Kill Discord Bot
 on:
   workflow_dispatch:
     inputs:
-    environment:
-      description: 'Deployment environment'
-      required: true
-      default: 'dev'
-      type: choice
-      options:
-        - 'dev'
-        - 'prod'
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - 'dev'
+          - 'prod'
 
 jobs:
   kill-bot-prod:

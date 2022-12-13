@@ -2,7 +2,7 @@ name: Deploy Discord Bot
 
 on:
   workflow_dispatch:
-      inputs:
+    inputs:
       environment:
         description: 'Deployment environment'
         required: true
