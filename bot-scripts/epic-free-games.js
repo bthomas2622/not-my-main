@@ -89,3 +89,4 @@ const getFreeEPICGamesFormatted = async () => {
 };
 
 module.exports = { getFreeEPICGamesFormatted };
+

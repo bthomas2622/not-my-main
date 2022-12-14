@@ -2,7 +2,7 @@ name: Deploy Discord Bot
 
 on:
   workflow_dispatch:
-      inputs:
+    inputs:
       environment:
         description: 'Deployment environment'
         required: true
@@ -27,6 +27,8 @@ jobs:
       - name: SSH and restart updated discord bot
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          APEX_API_KEY: ${{ secrets.APEX_API_KEY }}
+          RIOT_TFT_API_KEY: ${{ secrets.RIOT_TFT_API_KEY }}
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -34,12 +36,12 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT }}
-          envs: DISCORD_TOKEN
+          envs: DISCORD_TOKEN, APEX_API_KEY, RIOT_TFT_API_KEY
           script: |
             cd freeBrunch-discord-bot
             git stash && git pull origin main
             npm install
-            export DISCORD_TOKEN=$DISCORD_TOKEN && export NODE_ENV=production && pm2 restart freeBrunch-bot --update-env
+            export DISCORD_TOKEN=$DISCORD_TOKEN && export RIOT_TFT_API_KEY=$RIOT_TFT_API_KEY && export APEX_API_KEY=$APEX_API_KEY && export NODE_ENV=production && pm2 restart freeBrunch-bot --update-env
 
   deploy-bot-dev:
     if : ${{ (github.event.inputs.environment == 'dev' && github.event_name == 'workflow_dispatch') || (github.ref == 'refs/heads/dev' && github.event_name == 'push') }}
@@ -48,6 +50,8 @@ jobs:
       - name: SSH and restart updated discord dev bot
         env:
           DISCORD_DEV_TOKEN: ${{ secrets.DISCORD_DEV_TOKEN }}
+          APEX_API_KEY: ${{ secrets.APEX_API_KEY }}
+          RIOT_TFT_API_KEY: ${{ secrets.RIOT_TFT_API_KEY }}
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -55,10 +59,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT }}
-          envs: DISCORD_DEV_TOKEN
+          envs: DISCORD_DEV_TOKEN, APEX_API_KEY, RIOT_TFT_API_KEY
           script: |
             cd freeBrunch-discord-bot-dev
             git stash && git pull origin dev
             npm install
-            export DISCORD_DEV_TOKEN=$DISCORD_DEV_TOKEN && export NODE_ENV=development && pm2 restart freeBrunch-bot-dev --update-env
+            export DISCORD_DEV_TOKEN=$DISCORD_DEV_TOKEN && export RIOT_TFT_API_KEY=$RIOT_TFT_API_KEY && export APEX_API_KEY=$APEX_API_KEY && export NODE_ENV=development && pm2 restart freeBrunch-bot-dev --update-env
 
