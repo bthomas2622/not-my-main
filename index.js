@@ -29,8 +29,7 @@ client.on('ready', () => {
 // call function only once after client is ready
 client.once(Events.ClientReady, async () => {
 	const freeEpicGamesDate = new schedule.RecurrenceRule();
-	// freeEpicGamesDate.dayOfWeek = 4;
-	freeEpicGamesDate.dayOfWeek = new schedule.Range(0, 6);
+	freeEpicGamesDate.dayOfWeek = 4;
 	freeEpicGamesDate.second = 0;
 	freeEpicGamesDate.minute = 0;
 	freeEpicGamesDate.hour = 9;

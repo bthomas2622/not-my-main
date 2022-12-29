@@ -27,8 +27,8 @@
     "@discordjs/builders": "^1.4.0",
     "@discordjs/rest": "^1.4.0",
     "axios": "^1.2.1",
-    "dayjs": "^1.11.6",
-    "discord-api-types": "^0.37.22",
+    "dayjs": "^1.11.7",
+    "discord-api-types": "^0.37.24",
     "discord.js": "^14.7.1",
     "node-schedule": "^2.1.0",
     "pm2": "^5.2.2"

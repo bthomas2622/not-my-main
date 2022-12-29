@@ -48,7 +48,7 @@ const getFreeEPICGamesFormatted = async () => {
             }
             let message = "";
             if (currFreeGames.length !== 0) {
-                message += "**---Today---**\n";
+                message += "**---This Week---**\n";
                 for (const game of currFreeGames) {
                     if (game.catalogNs && game.catalogNs.mappings && game.catalogNs.mappings[0] && game.catalogNs.mappings[0].pageSlug) {
                         message += `[${game.title}](https://store.epicgames.com/en-US/p/${game.catalogNs.mappings[0].pageSlug})`;
@@ -63,22 +63,22 @@ const getFreeEPICGamesFormatted = async () => {
                     }
                 }
             }
-            // if (nextFreeGames.length !== 0) {
-            //     message += "**---Next Week---**\n";
-            //     for (const game of nextFreeGames) {
-            //         if (game.catalogNs && game.catalogNs.mappings && game.catalogNs.mappings[0] && game.catalogNs.mappings[0].pageSlug) {
-            //             message += `[${game.title}](https://store.epicgames.com/en-US/p/${game.catalogNs.mappings[0].pageSlug})`;
-            //             if (game.price && game.price.totalPrice && game.price.totalPrice.fmtPrice && game.price.totalPrice.fmtPrice.originalPrice) {
-            //                 message += ` (~~${game.price.totalPrice.fmtPrice.originalPrice}~~)\n`;
-            //             }
-            //             else {
-            //                 message += `\n`;;
-            //             }
-            //         } else {
-            //             message += `${game.title}\n`;
-            //         }
-            //     }
-            // }
+            if (nextFreeGames.length !== 0) {
+                message += "**---Next Week---**\n";
+                for (const game of nextFreeGames) {
+                    if (game.catalogNs && game.catalogNs.mappings && game.catalogNs.mappings[0] && game.catalogNs.mappings[0].pageSlug) {
+                        message += `[${game.title}](https://store.epicgames.com/en-US/p/${game.catalogNs.mappings[0].pageSlug})`;
+                        if (game.price && game.price.totalPrice && game.price.totalPrice.fmtPrice && game.price.totalPrice.fmtPrice.originalPrice) {
+                            message += ` (~~${game.price.totalPrice.fmtPrice.originalPrice}~~)\n`;
+                        }
+                        else {
+                            message += `\n`;;
+                        }
+                    } else {
+                        message += `${game.title}\n`;
+                    }
+                }
+            }
             return message;
         }
         catch (error) {
