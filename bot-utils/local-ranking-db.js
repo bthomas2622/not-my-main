@@ -1,4 +1,4 @@
-import { getDb } from '../index.js';
+const { getDb } = require('../index.js');
 const { getTFTRankings } = require('../bot-scripts/get-tft-ranking.js');
 const { staggerApexRankings } = require('./staggerApexApi.js');
 

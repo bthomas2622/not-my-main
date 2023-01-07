@@ -5,7 +5,6 @@ const { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } = require(
 const { getFreeEPICGamesFormatted } = require('./bot-scripts/epic-free-games.js');
 const { Low } = require('lowdb')
 const { JSONFile } = require('lowdb/node')
-import { JSONFile } from 'lowdb/node'
 const { updateLocalRankingDb } = require('./bot-utils/local-ranking-db.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
