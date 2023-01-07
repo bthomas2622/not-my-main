@@ -1,19 +1,24 @@
-const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
-const legends = require('../apex_legends.json');
+import { SlashCommandBuilder, AttachmentBuilder } from "discord.js";
+import legends from "../apex_legends.json";
 
-module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('apex-not-my-main')
-		.setDescription('Generate a random Apex Legends champion, if you lose it\'s ok! It\'s not your main'),
-	async execute(interaction) {
-                const apexLegendList = Object.keys(legends);
-                let chosenLegend = apexLegendList[Math.floor(Math.random() * apexLegendList.length)];
-                let chosenLegendVoiceLines = legends[chosenLegend];
-                let response = "**" + chosenLegend.replace(/_/g, ' ') + "**" + " - " + '"' + chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)] + '"';
-                let attachment = new AttachmentBuilder().setName(chosenLegend + '.png').setFile('./pics/apex/' + chosenLegend + '.png');
-                await interaction.reply({
-                        content: response, 
-                        files: [attachment]
-                });
-	},
-};
+export const data = new SlashCommandBuilder()
+  .setName("apex-not-my-main")
+  .setDescription("Generate a random Apex Legends champion, if you lose it's ok! It's not your main");
+
+/**
+ * Execute the command to generate a random Apex Legends champion
+ * @param {Interaction} interaction the interaction object
+ * @returns {Promise<void>} void
+ */
+export async function execute(interaction) {
+  const apexLegendList = Object.keys(legends);
+  const chosenLegend = apexLegendList[Math.floor(Math.random() * apexLegendList.length)];
+  const chosenLegendVoiceLines = legends[chosenLegend];
+  const response = `**${chosenLegend.replace(/_/u, " ")}** - ${chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)]}`;
+  const attachment = new AttachmentBuilder().setName(`${chosenLegend}.png`).setFile(`./pics/apex/${chosenLegend}.png`);
+
+  await interaction.reply({
+    content: response,
+    files: [attachment]
+  });
+}

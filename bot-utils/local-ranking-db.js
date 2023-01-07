@@ -1,123 +1,143 @@
-const { getDb } = require('../index.js');
-const { getTFTRankings } = require('../bot-scripts/get-tft-ranking.js');
-const { staggerApexRankings } = require('./staggerApexApi.js');
+import { getDb } from "../index.js";
+import { getTFTRankings } from "../bot-scripts/get-tft-ranking.js";
+import { staggerApexRankings } from "./staggerApexApi.js";
 
-const initializeLocalRankingDb = async () => {
-    let db = getDb();
-    try {
-        const defaultRankings = {
-            apex: '',
-            tft_solo: '',
-            tft_duo: ''
-        }
-        const defaultData = {
-            ben: defaultRankings,
-            patrick: defaultRankings,
-            alex: defaultRankings
-        }
-        await db.read();
-        db.data = defaultData;
-        await db.write();
-    }
-    catch (error) {
-        console.log('error initializing local ranking db');
-        console.error(error);
-    }
+
+/**
+ * Initialize the local ranking db
+ * @returns {Promise<void>} void
+ */
+async function initializeLocalRankingDb() {
+  const db = getDb();
+
+  try {
+    const defaultRankings = {
+      apex: "",
+      tftSolo: "",
+      tftDuo: ""
+    };
+    const defaultData = {
+      ben: defaultRankings,
+      patrick: defaultRankings,
+      alex: defaultRankings
+    };
+
+    await db.read();
+    db.data = defaultData;
+    await db.write();
+  } catch (error) {
+    console.log("error initializing local ranking db");
+    console.error(error);
+  }
 }
 
-const getLocalRankingDb = async () => {
-    let db = getDb();
-    try {
-        await db.read();
-        if (db.data) {
-            return db.data;
-        }
-        else {
-            await initializeLocalRankingDb();
-            await db.read();
-            return db.data;
-        }
+/**
+ * Get the local ranking db
+ * @returns {Promise<Object>} local ranking db
+ */
+async function getLocalRankingDb() {
+  const db = getDb();
+
+  try {
+    await db.read();
+    if (db.data) {
+      return db.data;
     }
-    catch (error) {
-        console.log('error retrieving local ranking db');
-        console.error(error);
-    }
+
+    await initializeLocalRankingDb();
+    await db.read();
+    return db.data;
+
+  } catch (error) {
+    console.log("error retrieving local ranking db");
+    console.error(error);
+    return null;
+  }
 }
 
-const setLocalRankingDb = async (ranking_data) => {
-    let db = getDb();
-    try {
-        await db.read();
-        db.data = ranking_data;
-        await db.write();
-    }
-    catch (error) {
-        console.log('error setting local ranking db');
-        console.error(error);
-    }
+/**
+ * Set the local ranking db
+ * @param {Object} rankingData the data to set the local ranking db to
+ * @returns {Promise<void>} void
+ */
+async function setLocalRankingDb(rankingData) {
+  const db = getDb();
+
+  try {
+    await db.read();
+    db.data = rankingData;
+    await db.write();
+  } catch (error) {
+    console.log("error setting local ranking db");
+    console.error(error);
+  }
 }
 
-const updateLocalRankingDb = async () => {
-    try {
-        let patrickTFTRankings = await getTFTRankings('FigFire');
-        let benTFTRankings = await getTFTRankings('freeBrunch');
-        let awokenApexRankings = await staggerApexRankings(['freeBrunch', 'FigFire1', 'alliedengineer']);
-        let patrickApexRanking = awokenApexRankings.FigFire1 === 'Unable to retrieve ranking' ? '' : awokenApexRankings.FigFire1;
-        let benApexRanking = awokenApexRankings.freeBrunch === 'Unable to retrieve ranking' ? '' : awokenApexRankings.freeBrunch;
-        let alexApexRanking = awokenApexRankings.alliedengineer === 'Unable to retrieve ranking' ? '' : awokenApexRankings.alliedengineer;
-        let benTftSolo = '';
-        let benTftDuo = '';
-        let patrickTftSolo = '';
-        let patrickTftDuo = '';
+/**
+ * Update the local ranking db
+ * @returns {Promise<void>} void
+ */
+async function updateLocalRankingDb() {
+  try {
+    const patrickTFTRankings = await getTFTRankings("FigFire");
+    const benTFTRankings = await getTFTRankings("freeBrunch");
+    const awokenApexRankings = await staggerApexRankings(["freeBrunch", "FigFire1", "alliedengineer"]);
+    const patrickApexRanking = awokenApexRankings.FigFire1 === "Unable to retrieve ranking" ? "" : awokenApexRankings.FigFire1;
+    const benApexRanking = awokenApexRankings.freeBrunch === "Unable to retrieve ranking" ? "" : awokenApexRankings.freeBrunch;
+    const alexApexRanking = awokenApexRankings.alliedengineer === "Unable to retrieve ranking" ? "" : awokenApexRankings.alliedengineer;
+    let benTftSolo = "";
+    let benTftDuo = "";
+    let patrickTftSolo = "";
+    let patrickTftDuo = "";
 
-        if (benTFTRankings && benTFTRankings.length > 0) {
-            for (let i = 0; i < benTFTRankings.length; i++) {
-                if (benTFTRankings[i].queueType === 'RANKED_TFT') {
-                    benTftSolo = `${tftRankings[i].tier} ${tftRankings[i].rank}`;
-                }
-                else if (tftRankings[i].queueType === 'RANKED_TFT_DOUBLE_UP') 
-                    benTftDuo = `${tftRankings[i].tier} ${tftRankings[i].rank}`;
-                }
+    if (benTFTRankings && benTFTRankings.length > 0) {
+      for (let i = 0; i < benTFTRankings.length; i++) {
+        if (benTFTRankings[i].queueType === "RANKED_TFT") {
+          benTftSolo = `${benTFTRankings[i].tier} ${benTFTRankings[i].rank}`;
+        } else if (benTFTRankings[i].queueType === "RANKED_TFT_DOUBLE_UP") {
+          benTftDuo = `${benTFTRankings[i].tier} ${benTFTRankings[i].rank}`;
         }
-
-        if (patrickTFTRankings && patrickTFTRankings.length > 0) {
-            for (let i = 0; i < patrickTFTRankings.length; i++) {
-                if (patrickTFTRankings[i].queueType === 'RANKED_TFT') {
-                    patrickTftSolo = `${tftRankings[i].tier} ${tftRankings[i].rank}`;
-                }
-                else if (tftRankings[i].queueType === 'RANKED_TFT_DOUBLE_UP')
-                    patrickTftDuo = `${tftRankings[i].tier} ${tftRankings[i].rank}`;
-                }
-        }
-
-        const rankingData = {
-            ben: {
-                apex: benApexRanking,
-                tft_solo: benTftSolo,
-                tft_duo: benTftDuo
-            },
-            patrick: {
-                apex: patrickApexRanking,
-                tft_solo: patrickTftSolo,
-                tft_duo: patrickTftDuo
-            },
-            alex: {
-                apex: alexApexRanking,
-                tft_solo: '',
-                tft_duo: ''
-            }
-        }
-        
-        await setLocalRankingDb(rankingData);
-    } catch (error) {
-        console.error('Error updating local ranking db');
-        console.error(error);
+      }
     }
+
+    if (patrickTFTRankings && patrickTFTRankings.length > 0) {
+      for (let i = 0; i < patrickTFTRankings.length; i++) {
+        if (patrickTFTRankings[i].queueType === "RANKED_TFT") {
+          patrickTftSolo = `${patrickTFTRankings[i].tier} ${patrickTFTRankings[i].rank}`;
+        } else if (patrickTFTRankings[i].queueType === "RANKED_TFT_DOUBLE_UP") {
+          patrickTftDuo = `${patrickTFTRankings[i].tier} ${patrickTFTRankings[i].rank}`;
+        }
+      }
+    }
+
+    const rankingData = {
+      ben: {
+        apex: benApexRanking,
+        tftSolo: benTftSolo,
+        tftDuo: benTftDuo
+      },
+      patrick: {
+        apex: patrickApexRanking,
+        tftSolo: patrickTftSolo,
+        tftDuo: patrickTftDuo
+      },
+      alex: {
+        apex: alexApexRanking,
+        tftSolo: "",
+        tftDuo: ""
+      }
+    };
+
+    await setLocalRankingDb(rankingData);
+  } catch (error) {
+    console.error("Error updating local ranking db");
+    console.error(error);
+  }
 }
 
-module.exports = {
-    initializeLocalRankingDb,
-    getLocalRankingDb,
-    setLocalRankingDb,
-    updateLocalRankingDb
-}
+export default {
+  initializeLocalRankingDb,
+  getLocalRankingDb,
+  setLocalRankingDb,
+  updateLocalRankingDb
+};

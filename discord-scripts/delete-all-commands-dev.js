@@ -1,8 +1,8 @@
-const { REST, Routes } = require('discord.js');
+import { REST, Routes } from "discord.js";
 
-const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_DEV_TOKEN);
+const rest = new REST({ version: "10" }).setToken(process.env.DISCORD_DEV_TOKEN);
 
 // for global commands
 rest.put(Routes.applicationCommands(process.env.DISCORD_DEV_CLIENT_ID), { body: [] })
-	.then(() => console.log('Successfully deleted all application commands.'))
-	.catch(console.error);
+  .then(() => console.log("Successfully deleted all application commands."))
+  .catch(console.error);
