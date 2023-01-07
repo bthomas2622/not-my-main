@@ -7,12 +7,13 @@ import { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } from "dis
 import { getFreeEPICGamesFormatted } from "./bot-scripts/epic-free-games.js";
 import { updateLocalRankingDb } from "./bot-utils/local-ranking-db.js";
 import { createRequire } from "module";
+import { url } from "node:url";
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
-const commandsPath = path.join(import.meta.url, "commands");
+const commandsPath = path.join(url.fileURLToPath(import.meta.url), "commands");
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
 
 const db = new Low(new JSONFile("db.json"));
