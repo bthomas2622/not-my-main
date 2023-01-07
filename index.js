@@ -3,13 +3,18 @@ const path = require('node:path');
 const schedule = require('node-schedule');
 const { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const { getFreeEPICGamesFormatted } = require('./bot-scripts/epic-free-games.js');
+const { Low } = require('lowdb')
+const { JSONFile } = require('lowdb/node')
+import { JSONFile } from 'lowdb/node'
+const { updateLocalRankingDb } = require('./bot-utils/local-ranking-db.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
 client.commands = new Collection();
 
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+const db = new Low(new JSONFile('db.json'));
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
@@ -44,6 +49,9 @@ client.once(Events.ClientReady, async () => {
 			console.error(error);
 		}
 	});
+
+	// initialize the local ranking database
+	updateLocalRankingDb();
 });
 
 
@@ -70,4 +78,12 @@ if (process.env.NODE_ENV === 'production') {
 	client.login(process.env.DISCORD_TOKEN);
 } else {
 	client.login(process.env.DISCORD_DEV_TOKEN);
+}
+
+const getDb = () => {
+	return db;
+}
+
+module.exports = {
+	getDb
 }
