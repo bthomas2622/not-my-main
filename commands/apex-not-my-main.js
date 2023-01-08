@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, AttachmentBuilder } from "discord.js";
-import legends from "../apex_legends.json" assert { type: 'json' };
+import legends from "../apex_legends.js";
 
 const data = new SlashCommandBuilder()
   .setName("apex-not-my-main")
