@@ -19,9 +19,12 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 
 ### **Resources**
 
-NPM Packages:
+Core NPM Packages:
+- [axios](https://www.npmjs.com/package/axios)
 - [discordjs](https://discordjs.guide/)
 - [LowDB local JSON database](https://www.npmjs.com/package/lowdb)
+- [node-schedule](https://www.npmjs.com/package/node-schedule)
+- [PM2](https://www.npmjs.com/package/pm2)
 
 APIs:
 - [Apex Legends API](https://apexlegendsapi.com/)
