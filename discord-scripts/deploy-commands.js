@@ -1,7 +1,13 @@
 import { REST, Routes } from "discord.js";
 import { getCommandData } from "../index.js";
 
-const commands = getCommandData();
+const commands = [];
+
+getCommandData().forEach(command => {
+  commands.push(
+    command.data
+  );
+});
 
 // Construct and prepare an instance of the REST module
 const rest = new REST({ version: "10" }).setToken(process.env.DISCORD_TOKEN);

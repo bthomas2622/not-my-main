@@ -22,23 +22,14 @@ import { testLocalRankingsDbCommandData, testLocalRankingsDbCommandExecute } fro
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-if (process.env.NODE_ENV === "production") {
-  client.login(process.env.DISCORD_TOKEN);
-} else if (process.env.NODE_ENV === "local") {
-  dotenv.config();
-  client.login(process.env.DISCORD_TOKEN);
-} else {
-  client.login(process.env.DISCORD_DEV_TOKEN);
-}
-
 const db = new Low(new JSONFile("db.json"));
-
-client.commands = new Collection();
 
 const commandsData = [apexCommandData, coinFlipCommandData, dNumCommandData, d6CommandData, d20CommandData,
   getRankingsCommandData, helpCommandData, pickOneCommandData, testLocalRankingsDbCommandData];
 const commandsExecute = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
   d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute, testLocalRankingsDbCommandExecute];
+
+client.commands = new Collection();
 
 // loop through commandsData and commandsExecute and add to client.commands
 commandsData.forEach((commandData, index) => {
@@ -98,6 +89,15 @@ client.on(Events.InteractionCreate, async interaction => {
     await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
   }
 });
+
+if (process.env.NODE_ENV === "production") {
+  client.login(process.env.DISCORD_TOKEN);
+} else if (process.env.NODE_ENV === "local") {
+  dotenv.config();
+  client.login(process.env.DISCORD_TOKEN);
+} else if (process.env.NODE_ENV === "development") {
+  client.login(process.env.DISCORD_DEV_TOKEN);
+}
 
 /**
  * Returns the database
