@@ -1,8 +1,5 @@
-import { readdirSync } from "fs";
-import { readFile } from "fs/promises";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { fileURLToPath } from "url";
-import path from "path";
+import { getCommandData } from "../index.js";
 
 const data = new SlashCommandBuilder()
   .setName("help")
@@ -15,14 +12,9 @@ const data = new SlashCommandBuilder()
  */
 async function execute(interaction) {
   let str = "";
-  const commandFiles = readdirSync(fileURLToPath(path.dirname(import.meta.url))).filter(file => file.endsWith(".js"));
 
-  for (const file of commandFiles) {
-    const command = await readFile(`./${file}`, "utf8");
-
-    if (command.data.name) {
-      str += `**/${command.data.name}** - ${command.data.description} \n`;
-    }
+  for (const commandData of getCommandData()) {
+    str += `**/${commandData.data.name}** - ${commandData.data.description} \n`;
   }
 
   return interaction.reply({
