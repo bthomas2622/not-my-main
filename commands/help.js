@@ -1,6 +1,6 @@
 import { readdirSync } from "fs";
+import { readFile } from "fs/promises";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -18,7 +18,7 @@ export async function execute(interaction) {
   const commandFiles = readdirSync(fileURLToPath(path.dirname(import.meta.url))).filter(file => file.endsWith(".js"));
 
   for (const file of commandFiles) {
-    const command = createRequire(`./${file}`);
+    const command = await readFile(`./${file}`);
 
     if (command.data.name) {
       str += `**/${command.data.name}** - ${command.data.description} \n`;
