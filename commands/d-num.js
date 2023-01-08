@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 
-export const data = new SlashCommandBuilder()
+const data = new SlashCommandBuilder()
   .setName("d-num")
   .setDescription("Input the number of sides on a die and roll it")
   .addIntegerOption(option => option.setName("sides")
@@ -14,8 +14,10 @@ export const data = new SlashCommandBuilder()
  * @param {interaction} interaction the interaction object
  * @returns {Promise<void>} void
  */
-export async function execute(interaction) {
+async function execute(interaction) {
   const sides = interaction.options.getInteger("sides");
 
   await interaction.reply(`**Sides**: ${sides}\n**Rolled**: ${String(Math.floor(Math.random() * sides) + 1)}`);
 }
+
+export { data as dNumCommandData, execute as dNumCommandExecute };

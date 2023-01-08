@@ -4,7 +4,7 @@ import getApexRanking from "../bot-scripts/get-apex-ranking.js";
 import staggerApexRankings from "../bot-utils/staggerApexApi.js";
 import rankingsFormatter from "../bot-utils/rankingsFormatter.js";
 
-export const data = new SlashCommandBuilder()
+const data = new SlashCommandBuilder()
   .setName("get-rankings")
   .setDescription("Get Awoken rankings")
   .addStringOption(option => option.setName("options")
@@ -18,7 +18,7 @@ export const data = new SlashCommandBuilder()
  * @param {interaction} interaction the interaction object
  * @returns {Promise<void>} void
  */
-export async function execute(interaction) {
+async function execute(interaction) {
   const target = interaction.options.getString("options").toLowerCase();
   const options = ["awoken", "ben", "patrick", "alex"];
 
@@ -70,3 +70,5 @@ export async function execute(interaction) {
     }
   }
 }
+
+export { data as getRankingsCommandData, execute as getRankingsCommandExecute };

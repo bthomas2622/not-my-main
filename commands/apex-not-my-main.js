@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, AttachmentBuilder } from "discord.js";
-import legends from "../apex_legends.json";
+import legends from "../apex_legends.json" assert { type: 'json' };
 
-export const data = new SlashCommandBuilder()
+const data = new SlashCommandBuilder()
   .setName("apex-not-my-main")
   .setDescription("Generate a random Apex Legends champion, if you lose it's ok! It's not your main");
 
@@ -10,7 +10,7 @@ export const data = new SlashCommandBuilder()
  * @param {Interaction} interaction the interaction object
  * @returns {Promise<void>} void
  */
-export async function execute(interaction) {
+async function execute(interaction) {
   const apexLegendList = Object.keys(legends);
   const chosenLegend = apexLegendList[Math.floor(Math.random() * apexLegendList.length)];
   const chosenLegendVoiceLines = legends[chosenLegend];
@@ -22,3 +22,5 @@ export async function execute(interaction) {
     files: [attachment]
   });
 }
+
+export { data as apexCommandData, execute as apexCommandExecute };

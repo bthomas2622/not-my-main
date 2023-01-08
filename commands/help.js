@@ -4,7 +4,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { fileURLToPath } from "url";
 import path from "path";
 
-export const data = new SlashCommandBuilder()
+const data = new SlashCommandBuilder()
   .setName("help")
   .setDescription("List all available commands");
 
@@ -13,7 +13,7 @@ export const data = new SlashCommandBuilder()
  * @param {interaction} interaction the interaction object
  * @returns {Promise<void>} void
  */
-export async function execute(interaction) {
+async function execute(interaction) {
   let str = "";
   const commandFiles = readdirSync(fileURLToPath(path.dirname(import.meta.url))).filter(file => file.endsWith(".js"));
 
@@ -30,3 +30,5 @@ export async function execute(interaction) {
     ephemeral: true
   });
 }
+
+export { data as helpCommandData, execute as helpCommandExecute };

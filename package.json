@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
+    "local": "set NODE_ENV=local&&npm start",
     "test": "node test.js",
     "lint": "eslint --fix --ext .js,.jsx ."
   },
@@ -35,6 +36,7 @@
     "dayjs": "^1.11.7",
     "discord-api-types": "^0.37.24",
     "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
     "lowdb": "^5.0.5",
     "node-schedule": "^2.1.0",
     "pm2": "^5.2.2"

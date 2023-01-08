@@ -1,36 +1,49 @@
+import * as dotenv from "dotenv";
 // eslint-disable-next-line node/no-missing-import
 import { Low } from "lowdb";
 // eslint-disable-next-line node/no-missing-import
 import { JSONFile } from "lowdb/node";
-import { readdirSync } from "fs";
-import { readFile } from "fs/promises";
-import path from "path";
 import schedule from "node-schedule";
 import { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } from "discord.js";
 import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
 import { updateLocalRankingDb } from "./bot-utils/local-ranking-db.js";
-import { fileURLToPath } from "url";
+
+// Command Data
+import { apexCommandData, apexCommandExecute } from "./commands/apex-not-my-main.js";
+import { coinFlipCommandData, coinFlipCommandExecute } from "./commands/coin-flip.js";
+import { dNumCommandData, dNumCommandExecute } from "./commands/d-num.js";
+import { d6CommandData, d6CommandExecute } from "./commands/d6.js";
+import { d20CommandData, d20CommandExecute } from "./commands/d20.js";
+import { getRankingsCommandData, getRankingsCommandExecute } from "./commands/get-rankings.js";
+import { helpCommandData, helpCommandExecute } from "./commands/help.js";
+import { pickOneCommandData, pickOneCommandExecute } from "./commands/pick-one.js";
+import { testLocalRankingsDbCommandData, testLocalRankingsDbCommandExecute } from "./commands/test-local-rankings-db.js";
+
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.commands = new Collection();
-
-const commandsPath = path.join(fileURLToPath(path.dirname(import.meta.url)), "commands");
-const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+if (process.env.NODE_ENV === "production") {
+  client.login(process.env.DISCORD_TOKEN);
+} else if (process.env.NODE_ENV === "local") {
+  dotenv.config();
+  client.login(process.env.DISCORD_TOKEN);
+} else {
+  client.login(process.env.DISCORD_DEV_TOKEN);
+}
 
 const db = new Low(new JSONFile("db.json"));
 
-for (const file of commandFiles) {
-  const filePath = path.join(commandsPath, file);
-  const command = await readFile(filePath, "utf8");
+client.commands = new Collection();
 
-  // Set a new item in the Collection with the key as the command name and the value as the exported module
-  if ("data" in command && "execute" in command) {
-    client.commands.set(command.data.name, command);
-  } else {
-    console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-  }
-}
+const commandsData = [apexCommandData, coinFlipCommandData, dNumCommandData, d6CommandData, d20CommandData,
+  getRankingsCommandData, helpCommandData, pickOneCommandData, testLocalRankingsDbCommandData];
+const commandsExecute = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
+  d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute, testLocalRankingsDbCommandExecute];
+
+// loop through commandsData and commandsExecute and add to client.commands
+commandsData.forEach((commandData, index) => {
+  client.commands.set(commandData.name, { data: commandData, execute: commandsExecute[index] });
+});
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -38,6 +51,8 @@ client.on("ready", () => {
 
 // call function only once after client is ready
 client.once(Events.ClientReady, async () => {
+
+  // setup cronjobs
   const freeEpicGamesDate = new schedule.RecurrenceRule();
 
   freeEpicGamesDate.dayOfWeek = 4;
@@ -84,12 +99,6 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 });
 
-if (process.env.NODE_ENV === "production") {
-  client.login(process.env.DISCORD_TOKEN);
-} else {
-  client.login(process.env.DISCORD_DEV_TOKEN);
-}
-
 /**
  * Returns the database
  * @returns {Low<JSONFile>} the database
@@ -98,6 +107,20 @@ function getDb() {
   return db;
 }
 
-export default {
-  getDb
+/**
+ * get the command data and execute functions
+ * @returns {Array} commandData the command data
+ */
+function getCommandData() {
+  const commandArray = [];
+
+  commandsData.forEach((commandData, index) => {
+    commandArray.push({ data: commandData, execute: commandsExecute[index] });
+  });
+  return commandArray;
+}
+
+export {
+  getDb,
+  getCommandData
 };

@@ -1,4 +1,4 @@
-import getDb from "../index.js";
+import { getDb } from "../index.js";
 import getTFTRankings from "../bot-scripts/get-tft-ranking.js";
 import staggerApexRankings from "./staggerApexApi.js";
 

@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 
-export const data = new SlashCommandBuilder()
+const data = new SlashCommandBuilder()
   .setName("d20")
   .setDescription("Roll a d20");
 
@@ -9,6 +9,8 @@ export const data = new SlashCommandBuilder()
  * @param {interaction} interaction the interaction object
  * @returns {Promise<void>} void
  */
-export async function execute(interaction) {
+async function execute(interaction) {
   await interaction.reply(String(Math.floor(Math.random() * 20) + 1));
 }
+
+export { data as d20CommandData, execute as d20CommandExecute };

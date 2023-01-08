@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import { getLocalRankingDb } from "../bot-utils/local-ranking-db.js";
 
-export const data = new SlashCommandBuilder()
+const data = new SlashCommandBuilder()
   .setName("test-local-rankings-db")
   .setDescription("Test local rankings db");
 
@@ -10,8 +10,10 @@ export const data = new SlashCommandBuilder()
  * @param {interaction} interaction the interaction object
  * @returns {Promise<void>} void
  */
-export async function execute(interaction) {
+async function execute(interaction) {
   const localRankingDb = await getLocalRankingDb();
 
   await interaction.reply(`test-local-rankings-db: ${JSON.stringify(localRankingDb)}`);
 }
+
+export { data as testLocalRankingsDbCommandData, execute as testLocalRankingsDbCommandExecute };
