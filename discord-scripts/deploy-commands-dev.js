@@ -11,9 +11,9 @@ const commandFiles = readdirSync(`${fileURLToPath(path.dirname(import.meta.url))
 
 // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
 for (const file of commandFiles) {
-  const command = await readFile(`${fileURLToPath(path.dirname(import.meta.url))}/../commands/${file}`);
+  const command = await readFile(`${fileURLToPath(path.dirname(import.meta.url))}/../commands/${file}`, "utf8");
 
-  commands.push(command);
+  commands.push(JSON.parse(command));
 }
 
 // Construct and prepare an instance of the REST module

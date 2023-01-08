@@ -18,7 +18,7 @@ export async function execute(interaction) {
   const commandFiles = readdirSync(fileURLToPath(path.dirname(import.meta.url))).filter(file => file.endsWith(".js"));
 
   for (const file of commandFiles) {
-    const command = await readFile(`./${file}`);
+    const command = await readFile(`./${file}`, "utf8");
 
     if (command.data.name) {
       str += `**/${command.data.name}** - ${command.data.description} \n`;
