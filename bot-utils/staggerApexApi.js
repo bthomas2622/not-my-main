@@ -1,4 +1,4 @@
-import { getApexRanking } from "../bot-scripts/get-apex-ranking.js";
+import getApexRanking from "../bot-scripts/get-apex-ranking.js";
 
 /**
  * Get the Apex Legends rankings for a given usernames
@@ -26,4 +26,4 @@ async function staggerApexRankings(usernameArray) {
   return awokenRankings;
 }
 
-export default { staggerApexRankings };
+export default staggerApexRankings;

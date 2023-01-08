@@ -1,8 +1,8 @@
 import { SlashCommandBuilder } from "discord.js";
-import { getTFTRankings } from "../bot-scripts/get-tft-ranking.js";
-import { getApexRanking } from "../bot-scripts/get-apex-ranking.js";
-import { staggerApexRankings } from "../bot-utils/staggerApexApi.js";
-import { rankingsFormatter } from "../bot-utils/rankingsFormatter.js";
+import getTFTRankings from "../bot-scripts/get-tft-ranking.js";
+import getApexRanking from "../bot-scripts/get-apex-ranking.js";
+import staggerApexRankings from "../bot-utils/staggerApexApi.js";
+import rankingsFormatter from "../bot-utils/rankingsFormatter.js";
 
 export const data = new SlashCommandBuilder()
   .setName("get-rankings")

@@ -1,4 +1,4 @@
-import { get } from "axios";
+import axios from "axios";
 
 /**
  * Get the TFT rankings for a summoner
@@ -9,9 +9,9 @@ async function getTFTRankings(summonerName) {
   const rankings = [];
 
   try {
-    const summonerData = await get(`https://na1.api.riotgames.com/tft/summoner/v1/summoners/by-name/${summonerName}?api_key=${process.env.RIOT_TFT_API_KEY}`);
+    const summonerData = await axios.get(`https://na1.api.riotgames.com/tft/summoner/v1/summoners/by-name/${summonerName}?api_key=${process.env.RIOT_TFT_API_KEY}`);
     const summonerEncryptedId = summonerData.data.id;
-    const summonerRankings = await get(`https://na1.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerEncryptedId}?api_key=${process.env.RIOT_TFT_API_KEY}`);
+    const summonerRankings = await axios.get(`https://na1.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerEncryptedId}?api_key=${process.env.RIOT_TFT_API_KEY}`);
 
     if (summonerRankings.data.length > 0) {
       for (const rank of summonerRankings.data) {
@@ -30,4 +30,4 @@ async function getTFTRankings(summonerName) {
   }
 }
 
-export default { getTFTRankings };
+export default getTFTRankings;

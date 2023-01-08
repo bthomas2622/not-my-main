@@ -1,4 +1,4 @@
-import { get } from "axios";
+import axios from "axios";
 
 /**
  * Get the Apex Legends ranking for a given username
@@ -7,7 +7,7 @@ import { get } from "axios";
  */
 async function getApexRanking(username) {
   try {
-    const playerData = await get(`https://api.mozambiquehe.re/bridge?auth=${process.env.APEX_API_KEY}&player=${username}&platform=PC`, { headers: { "Accept-Encoding": "gzip,deflate,compress" } });
+    const playerData = await axios.get(`https://api.mozambiquehe.re/bridge?auth=${process.env.APEX_API_KEY}&player=${username}&platform=PC`, { headers: { "Accept-Encoding": "gzip,deflate,compress" } });
 
     return `${playerData.data.global.rank.rankName} ${playerData.data.global.rank.rankDiv}`;
   } catch (error) {
@@ -17,4 +17,4 @@ async function getApexRanking(username) {
   }
 }
 
-export default { getApexRanking };
+export default getApexRanking;

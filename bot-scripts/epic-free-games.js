@@ -1,4 +1,4 @@
-import { get } from "axios";
+import axios from "axios";
 import dayjs from "dayjs";
 
 /**
@@ -6,7 +6,7 @@ import dayjs from "dayjs";
  * @returns {Promise<string>} formatted string of free games
  */
 async function getFreeEPICGamesFormatted() {
-  const { data } = await get("https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?country=US");
+  const { data } = await axios.get("https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions?country=US");
 
   if (data.errors) {
     console.log("error retrieving free games");
@@ -93,4 +93,4 @@ async function getFreeEPICGamesFormatted() {
 
 }
 
-export default { getFreeEPICGamesFormatted };
+export default getFreeEPICGamesFormatted;

@@ -1,20 +1,21 @@
-import { Low } from "lowdb/lib";
-import { JSONFile } from "lowdb/lib/node";
-import { fs } from "node:fs";
-import { path } from "node:path";
-import { schedule } from "node-schedule";
+// eslint-disable-next-line node/no-missing-import
+import { Low } from "lowdb";
+// eslint-disable-next-line node/no-missing-import
+import { JSONFile } from "lowdb/node";
+import fs from "fs";
+import path from "path";
+import schedule from "node-schedule";
 import { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } from "discord.js";
-import { getFreeEPICGamesFormatted } from "./bot-scripts/epic-free-games.js";
+import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
 import { updateLocalRankingDb } from "./bot-utils/local-ranking-db.js";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
-
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
-const commandsPath = path.join(fileURLToPath(import.meta.url), "commands");
+const commandsPath = path.join(fileURLToPath(path.dirname(import.meta.url)), "commands");
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
 
 const db = new Low(new JSONFile("db.json"));

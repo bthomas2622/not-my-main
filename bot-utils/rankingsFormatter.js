@@ -32,4 +32,4 @@ function rankingsFormatter(tftRankings, tftBool, apexRanking, apexRankingBool) {
   return str;
 }
 
-export default { rankingsFormatter };
+export default rankingsFormatter;

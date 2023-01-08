@@ -2,6 +2,7 @@ import { readdirSync } from "fs";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
+import path from "path";
 
 export const data = new SlashCommandBuilder()
   .setName("help")
@@ -14,7 +15,7 @@ export const data = new SlashCommandBuilder()
  */
 export async function execute(interaction) {
   let str = "";
-  const commandFiles = readdirSync(fileURLToPath(import.meta.url)).filter(file => file.endsWith(".js"));
+  const commandFiles = readdirSync(fileURLToPath(path.dirname(import.meta.url))).filter(file => file.endsWith(".js"));
 
   for (const file of commandFiles) {
     const command = createRequire(`./${file}`);
