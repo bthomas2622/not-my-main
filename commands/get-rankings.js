@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import getTFTRankings from "../bot-scripts/get-tft-ranking.js";
+import getLoLRankings from "../bot-scripts/get-lol-ranking.js";
 import getApexRanking from "../bot-scripts/get-apex-ranking.js";
 import staggerApexRankings from "../bot-utils/staggerApexApi.js";
 import rankingsFormatter from "../bot-utils/rankingsFormatter.js";
@@ -30,12 +31,14 @@ async function execute(interaction) {
         await interaction.deferReply();
         const patrickTFTRankings = await getTFTRankings("FigFire");
         const benTFTRankings = await getTFTRankings("freeBrunch");
+        const patrickLoLRankings = await getLoLRankings("FigFire");
+        const benLoLRankings = await getLoLRankings("freeBrunch");
         const awokenApexRankings = await staggerApexRankings(["freeBrunch", "FigFire1", "alliedengineer"]);
         const patrickApexRanking = awokenApexRankings.FigFire1;
         const benApexRanking = awokenApexRankings.freeBrunch;
         const alexApexRanking = awokenApexRankings.alliedengineer;
 
-        await interaction.editReply(`**Patrick**\n${rankingsFormatter(patrickTFTRankings, true, patrickApexRanking, true)}**Ben**\n${rankingsFormatter(benTFTRankings, true, benApexRanking, true)}**Alex**\n${rankingsFormatter(null, false, alexApexRanking, true)}`);
+        await interaction.editReply(`**Patrick**\n${rankingsFormatter(patrickTFTRankings, true, patrickLoLRankings, true, patrickApexRanking, true)}**Ben**\n${rankingsFormatter(benTFTRankings, true, benLoLRankings, true, benApexRanking, true)}**Alex**\n${rankingsFormatter(null, false, null, false, alexApexRanking, true)}`);
       } catch (error) {
         console.log("error retrieving awoken rankings in get-rankings.js");
         console.error(error);
@@ -43,21 +46,23 @@ async function execute(interaction) {
       }
     } else if (target === "ben") {
       const benTFTRankings = await getTFTRankings("freeBrunch");
+      const benLoLRankings = await getLoLRankings("freeBrunch");
       const benApexRanking = await getApexRanking("freeBrunch");
 
-      if (benTFTRankings.length === 0 && benApexRanking === null) {
+      if (benTFTRankings.length === 0 && benApexRanking === null && benLoLRankings.length === 0) {
         await interaction.reply("No rankings found for Ben");
       } else {
-        await interaction.reply(`**Ben**\n${rankingsFormatter(benTFTRankings, true, benApexRanking, true)}`);
+        await interaction.reply(`**Ben**\n${rankingsFormatter(benTFTRankings, true, benLoLRankings, true, benApexRanking, true)}`);
       }
     } else if (target === "patrick") {
       const patrickTFTRankings = await getTFTRankings("FigFire");
+      const patrickLoLRankings = await getLoLRankings("FigFire");
       const patrickApexRanking = await getApexRanking("FigFire1");
 
-      if (patrickTFTRankings.length === 0 && patrickApexRanking === null) {
+      if (patrickTFTRankings.length === 0 && patrickApexRanking === null && patrickLoLRankings.length === 0) {
         await interaction.reply("No rankings found for Patrick");
       } else {
-        await interaction.reply(`**Patrick**\n${rankingsFormatter(patrickTFTRankings, true, patrickApexRanking, true)}`);
+        await interaction.reply(`**Patrick**\n${rankingsFormatter(patrickTFTRankings, true, patrickLoLRankings, true, patrickApexRanking, true)}`);
       }
     } else if (target === "alex") {
       const alexApexRanking = await getApexRanking("alliedengineer");

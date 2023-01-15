@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import { getLocalRankingDb } from "../bot-utils/local-ranking-db.js";
+import { getLocalRankingDb } from "../bot-utils/localRankingDB.js";
 
 const data = new SlashCommandBuilder()
   .setName("test-local-rankings-db")

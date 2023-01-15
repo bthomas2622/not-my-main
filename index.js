@@ -6,7 +6,8 @@ import { JSONFile } from "lowdb/node";
 import schedule from "node-schedule";
 import { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } from "discord.js";
 import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
-import { updateLocalRankingDb } from "./bot-utils/local-ranking-db.js";
+import dailyRanking from "./bot-scripts/daily-ranking.js";
+import { updateLocalRankingDb } from "./bot-utils/localRankingDB.js";
 
 // Command Data
 import { apexCommandData, apexCommandExecute } from "./commands/apex-not-my-main.js";
@@ -25,8 +26,13 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const db = new Low(new JSONFile("db.json"));
 
 const commandsData = [apexCommandData, coinFlipCommandData, dNumCommandData, d6CommandData, d20CommandData,
-  getRankingsCommandData, helpCommandData, pickOneCommandData, testLocalRankingsDbCommandData];
+  getRankingsCommandData, helpCommandData, pickOneCommandData];
 const commandsExecute = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
+  d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute];
+
+const commandsDataDev = [apexCommandData, coinFlipCommandData, dNumCommandData, d6CommandData, d20CommandData,
+  getRankingsCommandData, helpCommandData, pickOneCommandData, testLocalRankingsDbCommandData];
+const commandsExecuteDev = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
   d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute, testLocalRankingsDbCommandExecute];
 
 client.commands = new Collection();
@@ -52,6 +58,13 @@ client.once(Events.ClientReady, async () => {
   freeEpicGamesDate.hour = 9;
   freeEpicGamesDate.tz = "America/Los_Angeles";
 
+  const dailyRankingUpdate = new schedule.RecurrenceRule();
+
+  dailyRankingUpdate.second = 0;
+  dailyRankingUpdate.minute = 0;
+  dailyRankingUpdate.hour = 6;
+  dailyRankingUpdate.tz = "America/Los_Angeles";
+
   // schedule update message for free epic games
   schedule.scheduleJob(freeEpicGamesDate, async () => {
     try {
@@ -61,6 +74,22 @@ client.once(Events.ClientReady, async () => {
         generalChannel.send({ embeds: [new EmbedBuilder().setDescription(message).setTitle("EPIC Free Games")] });
       });
     } catch (error) {
+      console.error(error);
+    }
+  });
+
+  // schedule update message for daily ranking
+  schedule.scheduleJob(dailyRankingUpdate, async () => {
+    try {
+      const generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
+
+      await dailyRanking().then(message => {
+        if (message) {
+          generalChannel.send(message);
+        }
+      });
+    } catch (error) {
+      console.log("Error in daily ranking update");
       console.error(error);
     }
   });
@@ -109,15 +138,23 @@ function getDb() {
 
 /**
  * get the command data and execute functions
+ * @param {boolean} isDev is the environment development or local
  * @returns {Array} commandData the command data
  */
-function getCommandData() {
+function getCommandData(isDev) {
   const commandArray = [];
 
-  commandsData.forEach((commandData, index) => {
-    commandArray.push({ data: commandData, execute: commandsExecute[index] });
-  });
+  if (isDev) {
+    commandsDataDev.forEach((commandData, index) => {
+      commandArray.push({ data: commandData, execute: commandsExecuteDev[index] });
+    });
+  } else {
+    commandsData.forEach((commandData, index) => {
+      commandArray.push({ data: commandData, execute: commandsExecute[index] });
+    });
+  }
   return commandArray;
+
 }
 
 export {

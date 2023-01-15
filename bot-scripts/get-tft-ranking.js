@@ -15,11 +15,13 @@ async function getTFTRankings(summonerName) {
 
     if (summonerRankings.data.length > 0) {
       for (const rank of summonerRankings.data) {
-        if (rank.queueType === "RANKED_TFT_DOUBLE_UP") {
-          rankings.push(rank);
-        } else if (rank.queueType === "RANKED_TFT") {
+        if (rank.queueType === "RANKED_TFT") {
           rankings.push(rank);
         }
+
+        // else if (rank.queueType === "RANKED_TFT_DOUBLE_UP") {
+        //   rankings.push(rank);
+        // }
       }
     }
     return rankings;

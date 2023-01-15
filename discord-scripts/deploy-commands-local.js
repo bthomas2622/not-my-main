@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 const commands = [];
 
-getCommandData().forEach(command => {
+getCommandData(true).forEach(command => {
   commands.push(
     command.data
   );

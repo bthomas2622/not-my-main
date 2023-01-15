@@ -3,7 +3,7 @@ import { getCommandData } from "../index.js";
 
 const commands = [];
 
-getCommandData().forEach(command => {
+getCommandData(false).forEach(command => {
   commands.push(
     command.data
   );

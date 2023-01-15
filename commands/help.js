@@ -13,7 +13,7 @@ const data = new SlashCommandBuilder()
 async function execute(interaction) {
   let str = "";
 
-  for (const commandData of getCommandData()) {
+  for (const commandData of getCommandData(false)) {
     str += `**/${commandData.data.name}** - ${commandData.data.description} \n`;
   }
 

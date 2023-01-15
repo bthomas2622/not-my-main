@@ -1,5 +1,6 @@
 import { getDb } from "../index.js";
 import getTFTRankings from "../bot-scripts/get-tft-ranking.js";
+import getLoLRankings from "../bot-scripts/get-lol-ranking.js";
 import staggerApexRankings from "./staggerApexApi.js";
 
 
@@ -81,6 +82,8 @@ async function updateLocalRankingDb() {
   try {
     const patrickTFTRankings = await getTFTRankings("FigFire");
     const benTFTRankings = await getTFTRankings("freeBrunch");
+    const patrickLoLRankings = await getLoLRankings("FigFire");
+    const benLoLRankings = await getLoLRankings("freeBrunch");
     const awokenApexRankings = await staggerApexRankings(["freeBrunch", "FigFire1", "alliedengineer"]);
     const patrickApexRanking = awokenApexRankings.FigFire1 === "Unable to retrieve ranking" ? "" : awokenApexRankings.FigFire1;
     const benApexRanking = awokenApexRankings.freeBrunch === "Unable to retrieve ranking" ? "" : awokenApexRankings.freeBrunch;
@@ -94,8 +97,18 @@ async function updateLocalRankingDb() {
       for (let i = 0; i < benTFTRankings.length; i++) {
         if (benTFTRankings[i].queueType === "RANKED_TFT") {
           benTftSolo = `${benTFTRankings[i].tier} ${benTFTRankings[i].rank}`;
-        } else if (benTFTRankings[i].queueType === "RANKED_TFT_DOUBLE_UP") {
-          benTftDuo = `${benTFTRankings[i].tier} ${benTFTRankings[i].rank}`;
+        }
+
+        // else if (benTFTRankings[i].queueType === "RANKED_TFT_DOUBLE_UP") {
+        //   benTftDuo = `${benTFTRankings[i].tier} ${benTFTRankings[i].rank}`;
+        // }
+      }
+    }
+
+    if (benLoLRankings && benLoLRankings.length > 0) {
+      for (let i = 0; i < benLoLRankings.length; i++) {
+        if (benLoLRankings[i].queueType === "RANKED_TFT_DOUBLE_UP") {
+          benTftDuo = `${benLoLRankings[i].tier} ${benLoLRankings[i].rank}`;
         }
       }
     }
@@ -104,8 +117,18 @@ async function updateLocalRankingDb() {
       for (let i = 0; i < patrickTFTRankings.length; i++) {
         if (patrickTFTRankings[i].queueType === "RANKED_TFT") {
           patrickTftSolo = `${patrickTFTRankings[i].tier} ${patrickTFTRankings[i].rank}`;
-        } else if (patrickTFTRankings[i].queueType === "RANKED_TFT_DOUBLE_UP") {
-          patrickTftDuo = `${patrickTFTRankings[i].tier} ${patrickTFTRankings[i].rank}`;
+        }
+
+        // else if (patrickTFTRankings[i].queueType === "RANKED_TFT_DOUBLE_UP") {
+        //   patrickTftDuo = `${patrickTFTRankings[i].tier} ${patrickTFTRankings[i].rank}`;
+        // }
+      }
+    }
+
+    if (patrickLoLRankings && patrickLoLRankings.length > 0) {
+      for (let i = 0; i < patrickLoLRankings.length; i++) {
+        if (patrickLoLRankings[i].queueType === "RANKED_TFT_DOUBLE_UP") {
+          patrickTftDuo = `${patrickLoLRankings[i].tier} ${patrickLoLRankings[i].rank}`;
         }
       }
     }
