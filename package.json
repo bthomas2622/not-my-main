@@ -30,7 +30,7 @@
     "dayjs": "^1.11.7",
     "discord-api-types": "^0.37.24",
     "discord.js": "^14.7.1",
-    "node-schedule": "^2.1.0",
+    "node-schedule": "^2.1.1",
     "pm2": "^5.2.2"
   }
 }
