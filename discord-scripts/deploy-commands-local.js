@@ -1,9 +1,11 @@
 import { REST, Routes } from "discord.js";
 import { getCommandData } from "../index.js";
+import * as dotenv from "dotenv";
 
+dotenv.config();
 const commands = [];
 
-getCommandData(false).forEach(command => {
+getCommandData(true).forEach(command => {
   commands.push(
     command.data
   );

@@ -1,24 +1,26 @@
-const fs = require('fs');
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { getCommandData } from "../index.js";
 
-module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('List all available commands'),
-    async execute(interaction) {
-        let str = '';
-        const commandFiles = fs.readdirSync(__dirname).filter(file => file.endsWith('.js'));
+const data = new SlashCommandBuilder()
+  .setName("help")
+  .setDescription("List all available commands");
 
-        for (const file of commandFiles) {
-        const command = require(`./${file}`);
-            if (command.data.name) {
-                str += `**/${command.data.name}** - ${command.data.description} \n`;
-            }
-        }
+/**
+ * Execute the command to list all available commands
+ * @param {interaction} interaction the interaction object
+ * @returns {Promise<void>} void
+ */
+async function execute(interaction) {
+  let str = "";
 
-        return interaction.reply({
-            content: str,
-            ephemeral: true,
-        });
-    },
-};
+  for (const commandData of getCommandData(false)) {
+    str += `**/${commandData.data.name}** - ${commandData.data.description} \n`;
+  }
+
+  return interaction.reply({
+    content: str,
+    ephemeral: true
+  });
+}
+
+export { data as helpCommandData, execute as helpCommandExecute };

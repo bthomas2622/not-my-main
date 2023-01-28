@@ -1,11 +1,17 @@
 {
   "name": "freebrunch-discord-bot",
   "version": "1.0.1",
+  "engines": {
+    "node": ">=v19.4.0"
+  },
   "description": "freeBrunch's Discord Bot",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
-    "test": "node test.js"
+    "local": "set NODE_ENV=local&&npm start",
+    "test": "node test.js",
+    "lint": "eslint --fix --ext .js,.jsx ."
   },
   "repository": {
     "type": "git",
@@ -26,11 +32,17 @@
   "dependencies": {
     "@discordjs/builders": "^1.4.0",
     "@discordjs/rest": "^1.4.0",
-    "axios": "^1.2.1",
+    "axios": "^1.2.3",
     "dayjs": "^1.11.7",
-    "discord-api-types": "^0.37.24",
+    "discord-api-types": "^0.37.28",
     "discord.js": "^14.7.1",
-    "node-schedule": "^2.1.0",
+    "dotenv": "^16.0.3",
+    "lowdb": "^5.0.5",
+    "node-schedule": "^2.1.1",
     "pm2": "^5.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-eslint": "^7.0.0"
   }
 }
