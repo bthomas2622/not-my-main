@@ -14,6 +14,7 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 
 ### Bot Scheduled Messages
 - Post weekly free Epic Games Store games every Thursday to `#general` channel
+- Each morning check for server members who ranked up and post to `#general` channel
 
 # Setup Guide
 

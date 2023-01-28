@@ -10,7 +10,7 @@ async function dailyRanking() {
   try {
     const oldRankingData = await getLocalRankingDb();
 
-    if (!oldRankingData) {
+    if (oldRankingData) {
       await updateLocalRankingDb();
       const newRankingData = await getLocalRankingDb();
       const rankingTiers = ["iron", "bronze", "silver", "gold", "platinum", "diamond", "master", "grandmaster", "challenger"];
@@ -21,10 +21,10 @@ async function dailyRanking() {
       // if the values are different, add the difference to the changedRanks ranking object
       Object.keys(oldRankingData).forEach(player => {
         Object.keys(oldRankingData[player]).forEach(game => {
-          const oldRankFormatted = oldRankingData[player][game].split(" ")[0].toLowerCase();
-          const newRankFormatted = newRankingData[player][game].split(" ")[0].toLowerCase();
+          const oldRankFormatted = oldRankingData[player][game] ? oldRankingData[player][game].split(" ")[0].toLowerCase() : "na";
+          const newRankFormatted = newRankingData[player][game] ? newRankingData[player][game].split(" ")[0].toLowerCase() : "na";
 
-          if (rankingTiers.contains(newRankFormatted) && rankingTiers.contains(oldRankFormatted)) {
+          if (rankingTiers.includes(newRankFormatted) && rankingTiers.includes(oldRankFormatted)) {
             if (rankingTiers.indexOf(newRankFormatted) > rankingTiers.indexOf(oldRankFormatted)) {
               changedRanks[player].push({
                 game,
@@ -38,7 +38,7 @@ async function dailyRanking() {
       });
 
       if (changedRanksCount > 0) {
-        let message = "## AWOKEN grind update:\n";
+        let message = "**AWOKEN GRIND UPDATE:**\n";
 
         Object.keys(changedRanks).forEach(player => {
           message += `**${capitalizeFirstLetterOnly(player)}**\n`;

@@ -30,17 +30,24 @@ const commandsData = [apexCommandData, coinFlipCommandData, dNumCommandData, d6C
 const commandsExecute = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
   d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute];
 
-const commandsDataDev = [apexCommandData, coinFlipCommandData, dNumCommandData, d6CommandData, d20CommandData,
+const commandsDataLocal = [apexCommandData, coinFlipCommandData, dNumCommandData, d6CommandData, d20CommandData,
   getRankingsCommandData, helpCommandData, pickOneCommandData, testLocalRankingsDbCommandData];
-const commandsExecuteDev = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
+const commandsExecuteLocal = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
   d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute, testLocalRankingsDbCommandExecute];
 
 client.commands = new Collection();
 
 // loop through commandsData and commandsExecute and add to client.commands
-commandsData.forEach((commandData, index) => {
-  client.commands.set(commandData.name, { data: commandData, execute: commandsExecute[index] });
-});
+if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
+  commandsData.forEach((commandData, index) => {
+    client.commands.set(commandData.name, { data: commandData, execute: commandsExecute[index] });
+  });
+} else if (process.env.NODE_ENV === "local") {
+  commandsDataLocal.forEach((commandData, index) => {
+    client.commands.set(commandData.name, { data: commandData, execute: commandsExecuteLocal[index] });
+  });
+}
+
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -138,15 +145,15 @@ function getDb() {
 
 /**
  * get the command data and execute functions
- * @param {boolean} isDev is the environment development or local
+ * @param {boolean} isLocal is the environment local
  * @returns {Array} commandData the command data
  */
-function getCommandData(isDev) {
+function getCommandData(isLocal) {
   const commandArray = [];
 
-  if (isDev) {
-    commandsDataDev.forEach((commandData, index) => {
-      commandArray.push({ data: commandData, execute: commandsExecuteDev[index] });
+  if (isLocal) {
+    commandsDataLocal.forEach((commandData, index) => {
+      commandArray.push({ data: commandData, execute: commandsExecuteLocal[index] });
     });
   } else {
     commandsData.forEach((commandData, index) => {
