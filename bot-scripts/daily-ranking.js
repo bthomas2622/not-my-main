@@ -41,10 +41,12 @@ async function dailyRanking() {
         let message = "**AWOKEN GRIND UPDATE:**\n";
 
         Object.keys(changedRanks).forEach(player => {
-          message += `**${capitalizeFirstLetterOnly(player)}**\n`;
-          changedRanks[player].forEach(update => {
-            message += `${formatGameName(update.game)}: ~~${update.oldRanking}~~ ${update.newRanking}\n`;
-          });
+          if (changedRanks[player].length > 0) {
+            message += `**${capitalizeFirstLetterOnly(player)}**\n`;
+            changedRanks[player].forEach(update => {
+              message += `${formatGameName(update.game)}: ~~${update.oldRanking}~~ -> ${update.newRanking}\n`;
+            });
+          }
         });
         return message;
       }
