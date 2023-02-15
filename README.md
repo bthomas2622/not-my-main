@@ -11,6 +11,7 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 - `/d20` -> Roll a d20
 - `/d-num` -> Roll a die with input number of sides
 - `/get-rankings` -> Get various game rankings of server members
+- `/get-game-info` -> Get your information about a game from the RAWG API
 
 ### Bot Scheduled Messages
 - Post weekly free Epic Games Store games every Thursday to `#general` channel
@@ -30,7 +31,7 @@ Core NPM Packages:
 APIs:
 - [Apex Legends API](https://apexlegendsapi.com/)
 - [Riot Games API](https://developer.riotgames.com/)
-
+- [RAWG API](https://rawg.io/apidocs)
 
 ### **Prerequisites**
 1. [Create your bot](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot) and [invite to your discord server](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#bot-invite-links) (this bot will be what is running "freeBrunch-discord-bot", will be source of tokens, clientids, etc.)

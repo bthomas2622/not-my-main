@@ -18,6 +18,7 @@ import { d20CommandData, d20CommandExecute } from "./commands/d20.js";
 import { getRankingsCommandData, getRankingsCommandExecute } from "./commands/get-rankings.js";
 import { helpCommandData, helpCommandExecute } from "./commands/help.js";
 import { pickOneCommandData, pickOneCommandExecute } from "./commands/pick-one.js";
+import { gameInfoCommandData, gameInfoCommandExecute } from "./commands/get-game-info.js";
 import { testLocalRankingsDbCommandData, testLocalRankingsDbCommandExecute } from "./commands/test-local-rankings-db.js";
 
 
@@ -26,14 +27,14 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const db = new Low(new JSONFile("db.json"));
 
 const commandsData = [apexCommandData, coinFlipCommandData, dNumCommandData, d6CommandData, d20CommandData,
-  getRankingsCommandData, helpCommandData, pickOneCommandData];
+  getRankingsCommandData, helpCommandData, pickOneCommandData, gameInfoCommandData];
 const commandsExecute = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
-  d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute];
+  d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute, gameInfoCommandExecute];
 
 const commandsDataLocal = [apexCommandData, coinFlipCommandData, dNumCommandData, d6CommandData, d20CommandData,
-  getRankingsCommandData, helpCommandData, pickOneCommandData, testLocalRankingsDbCommandData];
+  getRankingsCommandData, helpCommandData, pickOneCommandData, gameInfoCommandData, testLocalRankingsDbCommandData];
 const commandsExecuteLocal = [apexCommandExecute, coinFlipCommandExecute, dNumCommandExecute, d6CommandExecute,
-  d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute, testLocalRankingsDbCommandExecute];
+  d20CommandExecute, getRankingsCommandExecute, helpCommandExecute, pickOneCommandExecute, gameInfoCommandExecute, testLocalRankingsDbCommandExecute];
 
 client.commands = new Collection();
 
