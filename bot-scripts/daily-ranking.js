@@ -38,13 +38,17 @@ async function dailyRanking() {
       });
 
       if (changedRanksCount > 0) {
-        let message = "**AWOKEN GRIND UPDATE:**\n";
+
+        // list of emojis to use
+        const emojiList = [":star:", ":star2:", ":dizzy:", ":sparkles:", ":fire:", ":metal:", ":dog:", ":cat:", ":ocean:", ":sunrise:", ":rainbow:", ":turtle:", ":dragon:", ":unicorn:", ":tada:", ":confetti_ball:", ":balloon:", ":fireworks:", ":dollar:", ":100:", ":saluting_face:", ":bread:", ":muscle:", ":goat:", ":cheese:", ":trophy:"];
+
+        let message = `${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} **AWOKEN GRIND UPDATE** ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]}\n`;
 
         Object.keys(changedRanks).forEach(player => {
           if (changedRanks[player].length > 0) {
             message += `**${capitalizeFirstLetterOnly(player)}**\n`;
             changedRanks[player].forEach(update => {
-              message += `${formatGameName(update.game)}: ~~${update.oldRanking}~~ -> ${update.newRanking}\n`;
+              message += `> ${formatGameName(update.game)}: ~~${update.oldRanking}~~ -> ${update.newRanking}\n`;
             });
           }
         });

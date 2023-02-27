@@ -33,7 +33,9 @@ async function execute(interaction) {
       Object.keys(oldRankingData).forEach(player => {
         Object.keys(oldRankingData[player]).forEach(game => {
           const oldRankFormatted = oldRankingData[player][game] ? oldRankingData[player][game].split(" ")[0].toLowerCase() : "na";
-          const newRankFormatted = newRankingData[player][game] ? newRankingData[player][game].split(" ")[0].toLowerCase() : "na";
+          let newRankFormatted = newRankingData[player][game] ? newRankingData[player][game].split(" ")[0].toLowerCase() : "na";
+
+          newRankFormatted = "platinum";
 
           if (rankingTiers.includes(newRankFormatted) && rankingTiers.includes(oldRankFormatted)) {
             if (rankingTiers.indexOf(newRankFormatted) > rankingTiers.indexOf(oldRankFormatted)) {
@@ -49,12 +51,16 @@ async function execute(interaction) {
       });
 
       if (changedRanksCount > 0) {
-        message = "**AWOKEN GRIND UPDATE:**\n";
+
+        // list of emojis to use
+        const emojiList = [":star:", ":star2:", ":dizzy:", ":sparkles:", ":fire:", ":metal:", ":dog:", ":cat:", ":ocean:", ":sunrise:", ":rainbow:", ":turtle:", ":dragon:", ":unicorn:", ":tada:", ":confetti_ball:", ":balloon:", ":fireworks:", ":dollar:", ":100:", ":saluting_face:", ":bread:", ":muscle:", ":goat:", ":cheese:", ":trophy:"];
+
+        message = `${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} **AWOKEN GRIND UPDATE** ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]}\n`;
 
         Object.keys(changedRanks).forEach(player => {
           message += `**${capitalizeFirstLetterOnly(player)}**\n`;
           changedRanks[player].forEach(update => {
-            message += `${formatGameName(update.game)}: ~~${update.oldRanking}~~ ${update.newRanking}\n`;
+            message += `> ${formatGameName(update.game)}: ~~${update.oldRanking}~~ -> ${update.newRanking}\n`;
           });
         });
       }
