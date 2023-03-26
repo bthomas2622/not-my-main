@@ -25,7 +25,7 @@ function rankingsFormatter(tftRankings, tftBool, lolRankings, lolBool, apexRanki
     }
   } else {
     if (tftBool) {
-      str += "No TFT rankings found\n";
+      str += "No TFT Solo rankings found\n";
     }
   }
   if (lolRankings && lolRankings.length > 0) {
@@ -36,7 +36,7 @@ function rankingsFormatter(tftRankings, tftBool, lolRankings, lolBool, apexRanki
     }
   } else {
     if (lolBool) {
-      str += "No LoL rankings found\n";
+      str += "No TFT Duos rankings found\n";
     }
   }
   if (apexRanking) {
