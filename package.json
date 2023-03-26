@@ -2,7 +2,7 @@
   "name": "freebrunch-discord-bot",
   "version": "1.0.1",
   "engines": {
-    "node": ">=v19.4.0"
+    "node": ">=v18.12.0"
   },
   "description": "freeBrunch's Discord Bot",
   "main": "index.js",
