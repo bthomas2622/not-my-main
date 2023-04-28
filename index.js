@@ -8,6 +8,7 @@ import { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } from "dis
 import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
 import dailyRanking from "./bot-scripts/daily-ranking.js";
 import { updateLocalRankingDb } from "./bot-utils/localRankingDB.js";
+import sentimentToEmoji from "./bot-utils/sentimentToEmoji.js";
 
 // Command Data
 import { apexCommandData, apexCommandExecute } from "./commands/apex-not-my-main.js";
@@ -22,7 +23,8 @@ import { gameInfoCommandData, gameInfoCommandExecute } from "./commands/get-game
 import { testLocalRankingsDbCommandData, testLocalRankingsDbCommandExecute } from "./commands/test-local-rankings-db.js";
 
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+// eslint-disable-next-line max-len
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
 
 const db = new Low(new JSONFile("db.json"));
 
@@ -48,7 +50,6 @@ if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "developme
     client.commands.set(commandData.name, { data: commandData, execute: commandsExecuteLocal[index] });
   });
 }
-
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -124,6 +125,15 @@ client.on(Events.InteractionCreate, async interaction => {
   } catch (error) {
     console.error(error);
     await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+  }
+});
+
+client.on(Events.MessageCreate, async message => {
+
+  const sentiment = sentimentToEmoji(message.content);
+
+  if (sentiment) {
+    await message.react(sentiment);
   }
 });
 
