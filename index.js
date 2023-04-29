@@ -136,12 +136,15 @@ client.on(Events.MessageCreate, async message => {
   if (sentiment) {
     await message.react(sentiment);
   }
+<<<<<<< HEAD
 
   const specialEmoji = specialEmojis(message.content);
 
   if (specialEmoji) {
     await message.react(specialEmoji);
   }
+=======
+>>>>>>> main
 });
 
 if (process.env.NODE_ENV === "production") {
