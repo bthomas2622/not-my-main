@@ -8,7 +8,8 @@ import { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } from "dis
 import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
 import dailyRanking from "./bot-scripts/daily-ranking.js";
 import { updateLocalRankingDb } from "./bot-utils/localRankingDB.js";
-import sentimentToEmoji from "./bot-utils/sentimentToEmoji.js";
+import sentimentToEmoji from "./bot-scripts/sentimentToEmoji.js";
+import specialEmojis from "./bot-scripts/specialEmojis.js";
 
 // Command Data
 import { apexCommandData, apexCommandExecute } from "./commands/apex-not-my-main.js";
@@ -134,6 +135,12 @@ client.on(Events.MessageCreate, async message => {
 
   if (sentiment) {
     await message.react(sentiment);
+  }
+
+  const specialEmoji = specialEmojis(message.content);
+
+  if (specialEmoji) {
+    await message.react(specialEmoji);
   }
 });
 

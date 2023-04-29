@@ -7,7 +7,8 @@ import natural from "natural";
  */
 function sentimentToEmoji(messageContent) {
   try {
-    const messageFormatted = messageContent.toLowerCase().split(" ");
+    const punctuationRegex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/u;
+    const messageFormatted = messageContent.toLowerCase().replace(punctuationRegex, "").split(" ");
     const SentimentAnalyzer = new natural.SentimentAnalyzer("English", natural.PorterStemmer, "afinn");
     const sentiment = SentimentAnalyzer.getSentiment(messageFormatted) * messageFormatted.length;
 
