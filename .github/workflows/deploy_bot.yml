@@ -41,7 +41,7 @@ jobs:
           envs: DISCORD_TOKEN, APEX_API_KEY, RIOT_TFT_API_KEY, RIOT_LOL_API_KEY, RAWG_API_KEY
           script: |
             cd freeBrunch-discord-bot
-            git stash && git pull origin main
+            git reset --hard origin/main
             npm install
             export DISCORD_TOKEN=$DISCORD_TOKEN && export RAWG_API_KEY=$RAWG_API_KEY && export RIOT_TFT_API_KEY=$RIOT_TFT_API_KEY && export RIOT_LOL_API_KEY=$RIOT_LOL_API_KEY && export APEX_API_KEY=$APEX_API_KEY && export NODE_ENV=production && pm2 restart freeBrunch-bot --update-env
 
@@ -66,7 +66,7 @@ jobs:
           envs: DISCORD_DEV_TOKEN, APEX_API_KEY, RIOT_TFT_API_KEY, RIOT_LOL_API_KEY, RAWG_API_KEY
           script: |
             cd freeBrunch-discord-bot-dev
-            git stash && git pull origin dev
+            git reset --hard origin/dev
             npm install
             export DISCORD_DEV_TOKEN=$DISCORD_DEV_TOKEN && export RAWG_API_KEY=$RAWG_API_KEY && export RIOT_TFT_API_KEY=$RIOT_TFT_API_KEY && export RIOT_LOL_API_KEY=$RIOT_LOL_API_KEY && export APEX_API_KEY=$APEX_API_KEY && export NODE_ENV=development && pm2 restart freeBrunch-bot-dev --update-env
 
