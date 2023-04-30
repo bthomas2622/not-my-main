@@ -10,9 +10,4 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-
-  # Maintain dependencies for npm
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "monthly"
+    update_types: ["security", "dependencies", "dependabot:updates-only"]
