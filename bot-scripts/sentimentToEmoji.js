@@ -24,12 +24,13 @@ function sentimentToEmoji(messageContent) {
     if (sentiment <= -3) {
       return "😡";
     }
-    if (sentiment >= 2) {
-      return "😄";
-    }
-    if (sentiment <= -2) {
-      return "😞";
-    }
+
+    // if (sentiment >= 2) {
+    //   return "😄";
+    // }
+    // if (sentiment <= -2) {
+    //   return "😞";
+    // }
 
     return null;
 
