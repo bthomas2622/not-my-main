@@ -12,16 +12,19 @@ function sentimentToEmoji(messageContent) {
     const SentimentAnalyzer = new natural.SentimentAnalyzer("English", natural.PorterStemmer, "afinn");
     const sentiment = SentimentAnalyzer.getSentiment(messageFormatted) * messageFormatted.length;
 
-    if (sentiment >= 4) {
-      return "😍";
-    }
+    // if (sentiment >= 4) {
+    //   return "😍";
+    // }
+
     if (sentiment <= -4) {
       return "🤬";
     }
-    if (sentiment >= 3) {
-      return "😊";
-    }
-    if (sentiment <= -3) {
+
+    // if (sentiment >= 3) {
+    //   return "😊";
+    // }
+
+    if (sentiment <= -3.5) {
       return "😡";
     }
 
