@@ -10,4 +10,3 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    update_types: ["security", "dependencies", "dependabot:updates-only"]
