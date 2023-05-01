@@ -37,7 +37,7 @@
     "discord-api-types": "^0.37.31",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
-    "lowdb": "^5.0.5",
+    "lowdb": "^6.0.1",
     "natural": "^6.2.0",
     "node-schedule": "^2.1.1",
     "pm2": "^5.2.2"
