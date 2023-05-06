@@ -8,7 +8,6 @@ import { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } from "dis
 import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
 import dailyRanking from "./bot-scripts/daily-ranking.js";
 import { updateLocalRankingDb } from "./bot-utils/localRankingDB.js";
-import sentimentToEmoji from "./bot-scripts/sentimentToEmoji.js";
 import specialEmojis from "./bot-scripts/specialEmojis.js";
 
 // Command Data
@@ -130,13 +129,6 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.on(Events.MessageCreate, async message => {
-
-  const sentiment = sentimentToEmoji(message.content);
-
-  if (sentiment) {
-    await message.react(sentiment);
-  }
-
   const specialEmoji = specialEmojis(message.content);
 
   if (specialEmoji) {
