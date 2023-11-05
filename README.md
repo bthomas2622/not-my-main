@@ -18,7 +18,6 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 - Each morning check for server members who ranked up and post to `#general` channel
 
 ### Bot Reactions
-- Use [natural npm package](https://www.npmjs.com/package/natural) to react to chat messages with appropriately emotioned emojis based on the sentiment analysis of a particular message. Logic in `bot-scripts/sentimentToEmoji.js`.
 - If certain keywords are used in a message (like "dog"), the bot will react with the related emoji (like 🐶). Logic in `bot-scripts/specialEmojis.js`.
 
 # Setup Guide
