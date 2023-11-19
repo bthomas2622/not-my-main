@@ -5,7 +5,7 @@ const data = new SlashCommandBuilder()
   .setName("apex-not-my-main")
   .setDescription("Generate a random Apex Legends champion, if you lose it's ok! It's not your main")
   .addStringOption(option =>
-    option.setName("champion-class")
+    option.setName("class")
       .setDescription("Champion Class")
       .setRequired(true)
       .addChoices(
@@ -23,7 +23,7 @@ const data = new SlashCommandBuilder()
  * @returns {Promise<void>} void
  */
 async function execute(interaction) {
-  const chosenCLass = interaction.options.getString("champion-class");
+  const chosenCLass = interaction.options.getString("class");
 
   const apexLegendList = Object.keys(legends);
   const assaultLegendList = apexLegendList.filter(legend => legends[legend].class === "assault");
