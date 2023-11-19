@@ -51,7 +51,7 @@ async function execute(interaction) {
   }
 
   const chosenLegendVoiceLines = legends[chosenLegend].lines;
-  const response = `**${chosenLegend.replace(/_/u, " ")}** - ${chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)]}`;
+  const response = `**${chosenLegend.replace(/_/u, " ")}** - ${chosenLegendVoiceLines[Math.floor(Math.random() * chosenLegendVoiceLines.length)]}\n**Class Rolled**: ${chosenCLass.charAt(0).toUpperCase() + chosenCLass.slice(1)}\n`;
   const attachment = new AttachmentBuilder().setName(`${chosenLegend}.png`).setFile(`./pics/apex/${chosenLegend}.png`);
 
   await interaction.reply({
