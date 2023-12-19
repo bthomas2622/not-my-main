@@ -9,6 +9,7 @@ import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
 import dailyRanking from "./bot-scripts/daily-ranking.js";
 import { updateLocalRankingDb } from "./bot-utils/localRankingDB.js";
 import specialEmojis from "./bot-scripts/specialEmojis.js";
+import { fetchMessageHistory, processMessageHistory } from "./bot-scripts/message-history.js";
 
 // Command Data
 import { apexCommandData, apexCommandExecute } from "./commands/apex-not-my-main.js";
@@ -21,7 +22,6 @@ import { helpCommandData, helpCommandExecute } from "./commands/help.js";
 import { pickOneCommandData, pickOneCommandExecute } from "./commands/pick-one.js";
 import { gameInfoCommandData, gameInfoCommandExecute } from "./commands/get-game-info.js";
 import { testLocalRankingsDbCommandData, testLocalRankingsDbCommandExecute } from "./commands/test-local-rankings-db.js";
-
 
 // eslint-disable-next-line max-len
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
@@ -102,6 +102,18 @@ client.once(Events.ClientReady, async () => {
       console.error(error);
     }
   });
+
+  // testing message summary
+  console.log("Message summary for the past month:");
+  const oneMonthAgo = new Date();
+
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+  const oneMonthAgoSnowflake = (oneMonthAgo.getTime() - 1420070400000) * 4194304;
+
+  const messageHistory = await fetchMessageHistory(client, oneMonthAgoSnowflake);
+
+  processMessageHistory(messageHistory);
 
   // initialize the local ranking database
   updateLocalRankingDb();
