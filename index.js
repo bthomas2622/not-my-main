@@ -9,6 +9,7 @@ import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
 import dailyRanking from "./bot-scripts/daily-ranking.js";
 import { updateLocalRankingDb } from "./bot-utils/localRankingDB.js";
 import specialEmojis from "./bot-scripts/specialEmojis.js";
+import { fetchMessageHistory, processMessageHistory } from "./bot-scripts/message-history.js";
 
 // Command Data
 import { apexCommandData, apexCommandExecute } from "./commands/apex-not-my-main.js";
@@ -21,7 +22,6 @@ import { helpCommandData, helpCommandExecute } from "./commands/help.js";
 import { pickOneCommandData, pickOneCommandExecute } from "./commands/pick-one.js";
 import { gameInfoCommandData, gameInfoCommandExecute } from "./commands/get-game-info.js";
 import { testLocalRankingsDbCommandData, testLocalRankingsDbCommandExecute } from "./commands/test-local-rankings-db.js";
-
 
 // eslint-disable-next-line max-len
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions] });
@@ -99,6 +99,27 @@ client.once(Events.ClientReady, async () => {
       });
     } catch (error) {
       console.log("Error in daily ranking update");
+      console.error(error);
+    }
+  });
+
+  // schedule channel activity summary for the past month to run on first of every month
+  schedule.scheduleJob("2 0 1 * *", async () => {
+    try {
+      const theFeedChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "the-feed");
+      const dateForHistory = new Date();
+
+      dateForHistory.setMonth(dateForHistory.getMonth() - 1);
+      const oneMonthAgoSnowflake = (dateForHistory.getTime() - 1420070400000) * 4194304;
+      const messageHistory = await fetchMessageHistory(client, oneMonthAgoSnowflake);
+
+      if (messageHistory.length > 0) {
+        const channelMessageSummary = processMessageHistory(messageHistory);
+
+        theFeedChannel.send(channelMessageSummary);
+      }
+    } catch (error) {
+      console.log("Error sending monthly server message summary");
       console.error(error);
     }
   });
