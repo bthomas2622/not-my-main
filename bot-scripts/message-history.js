@@ -1,3 +1,5 @@
+import emojiList from "../bot-utils/emojiList.js";
+
 /**
  * Method that returns server messages since given time
  * @param {Object} client discord client
@@ -44,7 +46,22 @@ function processMessageHistory(messagesArray) {
 
     topAuthor = authorList.sort((a, b) => authorList.filter(v => v === a).length - authorList.filter(v => v === b).length).pop();
 
-    return `Total messages: ${messageCount}\nTotal emojis: ${emojiCount}\nTop author: ${topAuthor}`;
+    const emojisForMessage = emojiList();
+
+    // name of the previous month
+    const date = new Date();
+
+    date.setMonth(date.getMonth() - 1);
+    const prevMonthName = date.toLocaleString("default", { month: "long" }).toUpperCase();
+    const prevMonthYear = date.getFullYear();
+
+    let messageHistoryFormatted = `${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]} ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]} ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]}  **AWOKEN ${prevMonthName} ${prevMonthYear} STATS**  ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]} ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]} ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]}\n`;
+
+    messageHistoryFormatted += `> Message Count: **${messageCount}**\n`;
+    messageHistoryFormatted += `> Emoji Reacts: **${emojiCount}**\n`;
+    messageHistoryFormatted += `> Most Valuable Poster: **${topAuthor}**\n`;
+
+    return messageHistoryFormatted;
   } catch (error) {
     console.error(error);
     return null;

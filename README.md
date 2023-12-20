@@ -14,8 +14,9 @@ A simply fun [Discord](https://discord.com/) bot for your Discord server.
 - `/get-game-info` -> Get your information about a game from the RAWG API
 
 ### Bot Scheduled Messages
-- Post weekly free Epic Games Store games every Thursday to `#general` channel
-- Each morning check for server members who ranked up and post to `#general` channel
+- Post weekly free Epic Games Store games every Thursday to `#general` channel. Logic in `bot-scripts/epic-free-games`.
+- Each morning check for server members who ranked up and post to `#general` channel. Logic in `bot-scripts/daily-rankings`.
+- On the first of every month post a message to the `#the-feed` channel with server stats from the previous month. Logic in `bot-scripts/message-history`.
 
 ### Bot Reactions
 - If certain keywords are used in a message (like "dog"), the bot will react with the related emoji (like 🐶). Logic in `bot-scripts/specialEmojis.js`.

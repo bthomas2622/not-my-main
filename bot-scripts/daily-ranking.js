@@ -1,6 +1,7 @@
 import { getLocalRankingDb, updateLocalRankingDb } from "../bot-utils/localRankingDB.js";
 import formatGameName from "../bot-utils/formatGameName.js";
 import capitalizeFirstLetterOnly from "../bot-utils/capitalizeFirstLetterOnly.js";
+import emojiList from "../bot-utils/emojiList.js";
 
 /**
  * Get the daily ranking, update the db, and return any ranking changes to post in channel
@@ -38,11 +39,8 @@ async function dailyRanking() {
       });
 
       if (changedRanksCount > 0) {
-
-        // list of emojis to use
-        const emojiList = [":star:", ":star2:", ":dizzy:", ":sparkles:", ":fire:", ":metal:", ":dog:", ":cat:", ":ocean:", ":sunrise:", ":rainbow:", ":turtle:", ":dragon:", ":unicorn:", ":tada:", ":confetti_ball:", ":balloon:", ":fireworks:", ":dollar:", ":100:", ":saluting_face:", ":bread:", ":muscle:", ":goat:", ":cheese:", ":trophy:"];
-
-        let message = `${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} **AWOKEN GRIND UPDATE** ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]} ${emojiList[Math.floor(Math.random() * emojiList.length)]}\n`;
+        const emojisForMessage = emojiList();
+        let message = `${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]} ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]} ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]}  **AWOKEN GRIND UPDATE**  ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]} ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]} ${emojisForMessage[Math.floor(Math.random() * emojisForMessage.length)]}\n`;
 
         Object.keys(changedRanks).forEach(player => {
           if (changedRanks[player].length > 0) {

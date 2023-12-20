@@ -103,17 +103,26 @@ client.once(Events.ClientReady, async () => {
     }
   });
 
-  // testing message summary
-  console.log("Message summary for the past month:");
-  const oneMonthAgo = new Date();
+  // schedule channel activity summary for the past month to run on first of every month
+  schedule.scheduleJob("2 0 1 * *", async () => {
+    try {
+      const theFeedChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "the-feed");
+      const dateForHistory = new Date();
 
-  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      dateForHistory.setMonth(dateForHistory.getMonth() - 1);
+      const oneMonthAgoSnowflake = (dateForHistory.getTime() - 1420070400000) * 4194304;
+      const messageHistory = await fetchMessageHistory(client, oneMonthAgoSnowflake);
 
-  const oneMonthAgoSnowflake = (oneMonthAgo.getTime() - 1420070400000) * 4194304;
+      if (messageHistory.length > 0) {
+        const channelMessageSummary = processMessageHistory(messageHistory);
 
-  const messageHistory = await fetchMessageHistory(client, oneMonthAgoSnowflake);
-
-  processMessageHistory(messageHistory);
+        theFeedChannel.send(channelMessageSummary);
+      }
+    } catch (error) {
+      console.log("Error sending monthly server message summary");
+      console.error(error);
+    }
+  });
 
   // initialize the local ranking database
   updateLocalRankingDb();
