@@ -104,7 +104,7 @@ client.once(Events.ClientReady, async () => {
   });
 
   // schedule channel activity summary for the past month to run on first of every month
-  schedule.scheduleJob("2 0 1 * *", async () => {
+  schedule.scheduleJob("2 0 2 * *", async () => {
     try {
       const theFeedChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "the-feed");
       const dateForHistory = new Date();
