@@ -13,10 +13,17 @@ async function fetchMessageHistory(client, snowflakeTime) {
     const channels = Array.from(client.channels.cache.values());
 
     for (const channel of channels) {
-      const channelMessages = await channel.messages.fetch({ after: snowflakeTime });
+      if (channel.isTextBased()) {
+        try {
+          const channelMessages = await channel.messages.fetch({ after: snowflakeTime });
 
-      for (const message of channelMessages.values()) {
-        messagesArray.push(message);
+          for (const message of channelMessages.values()) {
+            messagesArray.push(message);
+          }
+        } catch (error) {
+          console.error(`Error fetching messages for channel ${channel.name}`);
+          console.error(error);
+        }
       }
     }
   } catch (error) {
