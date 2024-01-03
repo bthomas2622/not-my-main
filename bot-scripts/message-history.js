@@ -63,6 +63,7 @@ function processMessageHistory(messagesArray) {
 
     return messageHistoryFormatted;
   } catch (error) {
+    console.error("Error processing message history");
     console.error(error);
     return null;
   }
