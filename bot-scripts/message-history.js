@@ -66,7 +66,7 @@ function processMessageHistory(messagesArray) {
 
     messageHistoryFormatted += `> Message Count: **${messageCount}**\n`;
     messageHistoryFormatted += `> Emoji Reacts: **${emojiCount}**\n`;
-    messageHistoryFormatted += `> Most Valuable Poster: **${topAuthor}**\n`;
+    messageHistoryFormatted += `> Top Poster: **${topAuthor}**\n`;
 
     return messageHistoryFormatted;
   } catch (error) {
