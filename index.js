@@ -4,8 +4,7 @@ import { Low } from "lowdb";
 // eslint-disable-next-line node/no-missing-import
 import { JSONFile } from "lowdb/node";
 import schedule from "node-schedule";
-import { Client, Events, Collection, GatewayIntentBits, EmbedBuilder } from "discord.js";
-import getFreeEPICGamesFormatted from "./bot-scripts/epic-free-games.js";
+import { Client, Events, Collection, GatewayIntentBits } from "discord.js";
 import dailyRanking from "./bot-scripts/daily-ranking.js";
 import { updateLocalRankingDb } from "./bot-utils/localRankingDB.js";
 import specialEmojis from "./bot-scripts/specialEmojis.js";
@@ -59,13 +58,6 @@ client.on("ready", () => {
 client.once(Events.ClientReady, async () => {
 
   // setup cronjobs
-  const freeEpicGamesDate = new schedule.RecurrenceRule();
-
-  freeEpicGamesDate.dayOfWeek = 4;
-  freeEpicGamesDate.second = 0;
-  freeEpicGamesDate.minute = 0;
-  freeEpicGamesDate.hour = 9;
-  freeEpicGamesDate.tz = "America/Los_Angeles";
 
   const dailyRankingUpdate = new schedule.RecurrenceRule();
 
@@ -73,19 +65,6 @@ client.once(Events.ClientReady, async () => {
   dailyRankingUpdate.minute = 0;
   dailyRankingUpdate.hour = 6;
   dailyRankingUpdate.tz = "America/Los_Angeles";
-
-  // schedule update message for free epic games
-  schedule.scheduleJob(freeEpicGamesDate, async () => {
-    try {
-      const generalChannel = client.channels.cache.find(channel => channel.name.toLowerCase() === "general");
-
-      await getFreeEPICGamesFormatted().then(message => {
-        generalChannel.send({ embeds: [new EmbedBuilder().setDescription(message).setTitle("EPIC Free Games")] });
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  });
 
   // schedule update message for daily ranking
   schedule.scheduleJob(dailyRankingUpdate, async () => {
